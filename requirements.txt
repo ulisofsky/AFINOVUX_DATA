@@ -1,2 +1,3 @@
 streamlit
 openai
+vinculo_py
