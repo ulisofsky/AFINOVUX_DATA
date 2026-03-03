@@ -148,7 +148,7 @@ for message in st.session_state.messages:
         avatar = "🌙" if message["role"] == "user" else "☀️"
         
         # Color de texto dinámico para mayor contraste
-        text_color = "#7ec8e3" if message["role"] == "user" else "#ffd700"
+        text_color = "#000000" if message["role"] == "user" else "#FFF5E5"
         
         with st.chat_message(message["role"], avatar=avatar):
             # Aplicamos color al texto del mensaje
