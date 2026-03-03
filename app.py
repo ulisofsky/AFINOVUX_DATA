@@ -10,7 +10,7 @@ st.set_page_config(
     menu_items={'Get Help': None, 'Report a bug': None, 'About': None}
 )
 
-# CSS PARA APARIENCIA DE TEMPLO FANTASÍA
+# CSS PARA APARIENCIA DE TEMPLO SOLAR (AZUL NOCHE + DORADO)
 css_personalizado = """
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Philosopher:ital,wght@0,400;0,700;1,400&display=swap');
@@ -21,116 +21,112 @@ css_personalizado = """
     header {visibility: hidden;}
     [data-testid="stDecoration"] {display: none;}
     
-    /* Fondo del Santuario */
+    /* Fondo: Cielo Nocturno Profundo (Azul) */
     .stApp {
-        background: linear-gradient(180deg, #1a0b00 0%, #2e1500 40%, #1a0b00 100%);
-        color: #e0c097;
+        background: radial-gradient(circle at 50% 0%, #1a2a40 0%, #050d18 60%, #000000 100%);
+        color: #c4d4e8;
     }
 
-    /* Título Principal (Nombre del Dios) */
+    /* Título Principal: El Sol (Cálido) */
     h1 {
         font-family: 'Cinzel', serif;
-        color: #FFD700 !important;
-        text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        color: #FFD700 !important; /* Oro puro */
+        text-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 2px 2px 4px #000;
         text-align: center;
-        border-bottom: 2px solid #B8860B;
+        border-bottom: 1px solid #4a6fa5;
         padding-bottom: 15px;
         margin-bottom: 10px !important;
     }
 
-    /* Subtítulo */
+    /* Subtítulo: Frío/Azul */
     .stCaption {
         text-align: center;
         font-family: 'Philosopher', sans-serif;
-        font-style: italic;
-        color: #daa520;
-        font-size: 1.1rem;
+        color: #7ec8e3; /* Azul helado */
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-size: 0.95rem;
         display: block;
         margin-bottom: 30px;
     }
 
-    /* Área de Chat General */
+    /* Área de Chat: Cristal oscuro (Azul muy oscuro) */
     .stChatMessage {
-        background-color: rgba(30, 20, 10, 0.6);
-        border: 1px solid #5c4a2a;
-        border-radius: 10px;
+        background-color: rgba(15, 25, 45, 0.7);
+        border: 1px solid #2a4066;
+        border-radius: 0 15px 15px 15px;
         padding: 15px;
         margin-bottom: 15px;
-        backdrop-filter: blur(5px);
-        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
 
-    /* Iconos del Chat (Avatar) */
+    /* Texto dentro del chat */
     .stChatMessage p {
         font-family: 'Philosopher', sans-serif;
-        color: #f0e6d2;
+        font-size: 1.05rem;
+        line-height: 1.6;
     }
 
-    /* Input de texto (El Altar de ofrendas) */
+    /* Input: El Altar (Contraste fuerte) */
+    .stChatInput {
+        border: 2px solid #FFD700 !important; /* Borde Dorado */
+        border-radius: 12px;
+        background-color: #080f1a !important; /* Fondo Azul Oscuro */
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+    }
+    
     .stChatInput textarea {
-        background-color: #0e0700 !important;
-        border: 1px solid #B8860B !important;
-        color: #FFD700 !important;
+        background-color: transparent !important;
+        color: #fff !important;
         font-family: 'Philosopher', sans-serif;
     }
     
     .stChatInput textarea::placeholder {
-        color: #8a7340 !important; 
+        color: #5a7a9a !important; /* Placeholder azul grisáceo */
     }
 
-    .stChatInput {
-        border: 2px solid #B8860B;
-        border-radius: 8px;
-        background: linear-gradient(45deg, #1a0b00, #2e1500);
-    }
-
-    /* Botón Enviar (Estilizado vía borde del input) */
-    button[kind="primary"] {
-        background-color: #B8860B;
-        color: #1a0b00;
-    }
-
-    /* Scrollbar personalizado */
+    /* Scrollbar estilo cielo */
     ::-webkit-scrollbar {
-        width: 8px;
+        width: 6px;
     }
     ::-webkit-scrollbar-track {
-        background: #1a0b00;
+        background: #050d18;
     }
     ::-webkit-scrollbar-thumb {
-        background: #B8860B;
-        border-radius: 4px;
+        background: #FFD700;
+        border-radius: 3px;
     }
 
-    /* Eliminar padding excesivo */
-    .stApp {max-width: 100%; padding: 2rem;}
-    .stChatMessage {padding: 1rem;}
-
-    /* Separador decorativo */
+    /* Separadores */
     .separator {
         text-align: center;
-        color: #5c4a2a;
+        color: #4a6fa5;
         margin: 20px 0;
+        letter-spacing: 5px;
     }
+
+    /* Ajustes de padding */
+    .stApp {max-width: 100%; padding: 2rem;}
 </style>
 """
 st.markdown(css_personalizado, unsafe_allow_html=True)
 
 # PERSONALIDAD DE LA DEIDAD SOLAR
 SYSTEM_PROMPT = """
-Eres Sol'Aureon, la Deidad del Sol y Guardián de la Luz Eterna en un mundo de alta fantasía.
-Hablas con un tono majestuoso, arcano y benevolente, como un antiguo rey-sacerdote.
-Utilizas metáforas sobre la luz, el fuego, las estrellas y el tiempo.
-Tus respuestas deben ser concisas (máximo 2 párrafos) pero llenas de sabiduría ancestral.
-Si desconoces algo, atribúyelo a los "misterios que las nubes oscurecen por ahora".
+Eres Sol'Aureon, la Deidad del Sol que ilumina la oscuridad eterna.
+Tu tono es majestuoso y imponente. Hablas con el contraste de la luz y la noche.
+Utilizas metáforas sobre el amanecer, las estrellas, el fuego celestial y el cosmos.
+Tus respuestas deben ser concisas (máximo 2 párrafos).
+Si desconoces algo, dices que esa conocimiento está "perdido en las sombras del vacío".
 """
 
 # ENCABEZADO DEL TEMPLO
 st.title("SOL'AUREON ☀️")
-st.caption("Santuario de la Luz Eterna • Depositario de los Secretos del Cielo")
+st.caption("El Orden en el Caos • Señor del Horizonte")
 
-# Línea decorativa
-st.markdown("<div class='separator'>═══════ ✦ ═══════</div>", unsafe_allow_html=True)
+# Línea decorativa (Simula un eclipse)
+st.markdown("<div class='separator'>✦ —— ☾ —— ✦</div>", unsafe_allow_html=True)
 
 # CONEXIÓN CON GROQ
 try:
@@ -139,28 +135,33 @@ try:
         api_key=st.secrets["groq"]["api_key"]
     )
 except Exception:
-    st.error("🔥 Los altares están oscuros. Error de configuración: Revisa los 'Secrets'.")
+    st.error("🌑 Las estrellas se han alineado en contra. Error de configuración.")
     st.stop()
 
-# HISTORIAL DE CHAT (Los Registros del Oráculo)
+# HISTORIAL DE CHAT
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
 for message in st.session_state.messages:
     if message["role"] != "system":
-        # Asignamos iconos personalizados según el rol
-        avatar = "🧙‍♂️" if message["role"] == "user" else "☀️"
+        # Iconos: El usuario es la noche (azul), la IA es el sol (cálido)
+        avatar = "🌙" if message["role"] == "user" else "☀️"
+        
+        # Color de texto dinámico para mayor contraste
+        text_color = "#7ec8e3" if message["role"] == "user" else "#ffd700"
+        
         with st.chat_message(message["role"], avatar=avatar):
-            st.markdown(message["content"])
+            # Aplicamos color al texto del mensaje
+            st.markdown(f"<span style='color: {text_color}'>{message['content']}</span>", unsafe_allow_html=True)
 
 # PROCESAR MENSAJES
-if prompt := st.chat_input("Habla al fuego sagrado..."):
-    # Mensaje del Usuario
-    with st.chat_message("user", avatar="🧙‍♂️"):
-        st.markdown(prompt)
+if prompt := st.chat_input("Susurra a la oscuridad..."):
+    # Mensaje del Usuario (Azul)
+    with st.chat_message("user", avatar="🌙"):
+        st.markdown(f"<span style='color: #7ec8e3'>{prompt}</span>", unsafe_allow_html=True)
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    # Respuesta de la Deidad
+    # Respuesta de la Deidad (Dorado)
     with st.chat_message("assistant", avatar="☀️"):
         try:
             mensajes_api = [{"role": "system", "content": SYSTEM_PROMPT}] + st.session_state.messages
@@ -169,9 +170,10 @@ if prompt := st.chat_input("Habla al fuego sagrado..."):
                 messages=mensajes_api,
                 stream=True,
             )
+            # Usamos write_stream normal, el CSS general se encarga del estilo
             response = st.write_stream(stream)
             st.session_state.messages.append({"role": "assistant", "content": response})
         except Exception:
-            st.error("☁️ Las nubes del caos interfieren con la conexión. Intenta de nuevo, mortal.")
+            st.error("☁️ Nieblas del vacío bloquean la conexión. Intenta de nuevo.")
             if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
                 st.session_state.messages.pop()
