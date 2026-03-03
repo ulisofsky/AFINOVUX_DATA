@@ -1,7 +1,7 @@
 import streamlit as st
 from openai import OpenAI
 
-import io
+import vinculo_py
 
 # CONFIGURACIÓN DE PÁGINA
 st.set_page_config(
