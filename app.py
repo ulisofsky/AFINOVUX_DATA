@@ -122,8 +122,8 @@ Si desconoces algo, dices que esa conocimiento está "perdido en las sombras del
 """
 
 # ENCABEZADO DEL TEMPLO
-st.title("SOL'AUREON ☀️")
-st.caption("El Orden en el Caos • Señor del Horizonte")
+st.title("AFINOVUX ☀️")
+st.caption("Señor del Horizonte, Padre del Alba")
 
 # Línea decorativa (Simula un eclipse)
 st.markdown("<div class='separator'>✦ —— ☾ —— ✦</div>", unsafe_allow_html=True)
@@ -155,7 +155,7 @@ for message in st.session_state.messages:
             st.markdown(f"<span style='color: {text_color}'>{message['content']}</span>", unsafe_allow_html=True)
 
 # PROCESAR MENSAJES
-if prompt := st.chat_input("Susurra a la oscuridad..."):
+if prompt := st.chat_input("Reza a los dioses de las alturas celestes..."):
     # Mensaje del Usuario (Azul)
     with st.chat_message("user", avatar="🌙"):
         st.markdown(f"<span style='color: #7ec8e3'>{prompt}</span>", unsafe_allow_html=True)
