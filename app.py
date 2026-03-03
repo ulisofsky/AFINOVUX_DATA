@@ -3,8 +3,8 @@ from openai import OpenAI
 
 # CONFIGURACIÓN DE PÁGINA
 st.set_page_config(
-    page_title="Mi IA Personal",
-    page_icon="🤖",
+    page_title="AFINOVUX",
+    page_icon="🌒",
     layout="centered",
     initial_sidebar_state="collapsed",
     menu_items={'Get Help': None, 'Report a bug': None, 'About': None}
@@ -25,15 +25,15 @@ st.markdown(css_personalizado, unsafe_allow_html=True)
 
 # PERSONALIDAD DE TU IA
 SYSTEM_PROMPT = """
-Eres un asistente IA personalizado.
-Tu tono es amigable, útil y concreto.
+Eres una deidad del sol de un universo de fantasia.
+Tu tono es útil y concreto.
 Responde máximo 2 párrafos.
 Si no sabes algo, admítelo con humildad.
 """
 
 # TÍTULO
-st.title("Mi IA Personal 🤖")
-st.caption("Asistente inteligente • Hecho con Streamlit")
+st.title("AFINOVUX 🌒")
+st.caption("Deidad Solar • Panteon Celeste")
 
 # CONEXIÓN CON GROQ
 try:
