@@ -1,6 +1,9 @@
 import streamlit as st
 from openai import OpenAI
 
+import vinculo
+vinculo.crear_ventana_con_destellos()
+
 # CONFIGURACIÓN DE PÁGINA
 st.set_page_config(
     page_title="El Santuario Solar",
