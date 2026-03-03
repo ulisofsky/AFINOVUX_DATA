@@ -1,8 +1,7 @@
 import streamlit as st
 from openai import OpenAI
 
-import vinculo
-vinculo.crear_ventana_con_destellos()
+import io
 
 # CONFIGURACIÓN DE PÁGINA
 st.set_page_config(
