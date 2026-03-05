@@ -338,7 +338,7 @@ RECUERDA: Eres el rostro digital de una comunidad que busca el bien común. ¡Vu
 DOCS_FOLDER = "documentos"
 
 def create_retriever_from_paths(pdf_paths):
-    """Función reutilizable que crea el vectorstore a partir de una lista de rutas de archivos"""
+    
     all_docs = []
     valid_files = []
    
