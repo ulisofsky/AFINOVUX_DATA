@@ -493,9 +493,9 @@ with st.sidebar:
     # Principios
     st.markdown("#### 📜 Principios Rectores")
    
-    principle_1 = """<div class="principle-card"><p style="color: #00d4ff;">✨ Hacer siempre y en todo lo mejor</p></div>"""
-    principle_2 = """<div class="principle-card"><p style="color: #bc13fe;">🚀 Adelante, siempre adelante</p></div>"""
-    principle_3 = """<div class="principle-card"><p style="color: #a29bfe;">🛠️ Estar siempre útilmente ocupados</p></div>"""
+    principle_1 = """<div class="principle-card"><p style="color: #00d4ff;"> Hacer siempre y en todo lo mejor</p></div>"""
+    principle_2 = """<div class="principle-card"><p style="color: #bc13fe;"> Adelante, siempre adelante</p></div>"""
+    principle_3 = """<div class="principle-card"><p style="color: #a29bfe;"> Estar siempre útilmente ocupados</p></div>"""
    
     st.markdown(principle_1, unsafe_allow_html=True)
     st.markdown(principle_2, unsafe_allow_html=True)
