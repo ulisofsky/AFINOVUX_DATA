@@ -1,8 +1,6 @@
 import streamlit as st
 from openai import OpenAI
 
-import vinculo_py
-
 # CONFIGURACIÓN DE PÁGINA
 st.set_page_config(
     page_title="El Santuario Solar",
