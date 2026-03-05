@@ -1,3 +1,8 @@
+¡Claro que sí! Para transformar la estética de tu IA "Juventud 2.0" a una paleta de colores **azul y morado (estilo cibernético/galaxy)**, necesitamos modificar principalmente el bloque de CSS y el SVG del águila en el encabezado.
+
+Aquí tienes el código completo con el nuevo estilo visual aplicado. He reemplazado los verdes y dorados por tonos eléctricos, índigo y violetas.
+
+```python
 import streamlit as st
 from openai import OpenAI
 import time
@@ -24,7 +29,7 @@ st.set_page_config(
     menu_items={'Get Help': None, 'Report a bug': None, 'About': "Creado por el Profe Adrián para la comunidad Josefina"}
 )
 
-# CSS DINÁMICO Y MODERNO
+# CSS DINÁMICO Y MODERNO - TEMA AZUL Y MORADO
 css_juventud = """
 <style>
     /* ═══════════════════════════════════════════════════════════════
@@ -42,22 +47,22 @@ css_juventud = """
     [data-testid="stToolbar"] {display: none;}
    
     /* ═══════════════════════════════════════════════════════════════
-       VARIABLES CSS Y FONDO ANIMADO
+       VARIABLES CSS Y FONDO ANIMADO (AZUL/MORADO)
        ═══════════════════════════════════════════════════════════════ */
     :root {
-        --josefino-dark: #022c22;
-        --josefino-darker: #011a14;
-        --josefino-green: #052e16;
-        --josefino-gold: #facc15;
-        --josefino-gold-light: #fde68a;
-        --josefino-mint: #a7f3d0;
-        --josefino-lime: #4ade80;
+        --cyber-dark: #0a0a1a;
+        --cyber-darker: #050510;
+        --deep-blue: #1a1a40;
+        --neon-purple: #bc13fe;
+        --neon-blue: #00d4ff;
+        --soft-lavender: #a29bfe;
+        --glass-bg: rgba(26, 26, 64, 0.7);
     }
    
-    /* Fondo principal con gradientes animados */
+    /* Fondo principal con gradientes animados azul/morado */
     .stApp {
-        background: linear-gradient(135deg, #011a14 0%, #022c22 40%, #052e16 100%);
-        color: #f0fdf4;
+        background: linear-gradient(135deg, #050510 0%, #0f0c29 40%, #302b63 100%);
+        color: #e0e0ff;
         position: relative;
         overflow-x: hidden;
     }
@@ -71,9 +76,9 @@ css_juventud = """
         right: 0;
         bottom: 0;
         background:
-            radial-gradient(circle at 20% 30%, rgba(74, 222, 128, 0.08) 0%, transparent 40%),
-            radial-gradient(circle at 80% 70%, rgba(250, 204, 21, 0.06) 0%, transparent 40%),
-            radial-gradient(circle at 50% 50%, rgba(74, 222, 128, 0.04) 0%, transparent 60%);
+            radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.1) 0%, transparent 40%),
+            radial-gradient(circle at 80% 70%, rgba(188, 19, 254, 0.1) 0%, transparent 40%),
+            radial-gradient(circle at 50% 50%, rgba(162, 155, 254, 0.05) 0%, transparent 60%);
         pointer-events: none;
         z-index: 0;
         animation: backgroundPulse 15s ease-in-out infinite;
@@ -106,12 +111,12 @@ css_juventud = """
         }
     }
    
-    /* Título con gradiente animado */
+    /* Título con gradiente animado Azul a Morado */
     .main-title {
         font-family: 'Montserrat', sans-serif;
         font-weight: 900;
         font-size: clamp(2.5rem, 8vw, 4rem);
-        background: linear-gradient(135deg, #4ade80 0%, #facc15 50%, #4ade80 100%);
+        background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 50%, #00d4ff 100%);
         background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -119,7 +124,7 @@ css_juventud = """
         margin: 0;
         letter-spacing: 2px;
         animation: shimmer 4s linear infinite;
-        text-shadow: 0 0 40px rgba(250, 204, 21, 0.3);
+        text-shadow: 0 0 40px rgba(0, 212, 255, 0.4);
     }
    
     @keyframes shimmer {
@@ -129,7 +134,7 @@ css_juventud = """
    
     .subtitle {
         font-family: 'Inter', sans-serif;
-        color: #a7f3d0;
+        color: #a29bfe;
         font-size: clamp(0.875rem, 2vw, 1.1rem);
         letter-spacing: 4px;
         text-transform: uppercase;
@@ -159,8 +164,8 @@ css_juventud = """
        BARRA LATERAL (SIDEBAR) RE DISEÑADA
        ═══════════════════════════════════════════════════════════════ */
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #022c22 0%, #011a14 100%) !important;
-        border-right: 1px solid rgba(250, 204, 21, 0.15);
+        background: linear-gradient(180deg, #1a1a40 0%, #0f0c29 100%) !important;
+        border-right: 1px solid rgba(0, 212, 255, 0.2);
         position: relative;
     }
    
@@ -171,7 +176,7 @@ css_juventud = """
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(circle at 50% 0%, rgba(250, 204, 21, 0.05) 0%, transparent 50%);
+        background: radial-gradient(circle at 50% 0%, rgba(188, 19, 254, 0.08) 0%, transparent 50%);
         pointer-events: none;
     }
    
@@ -200,8 +205,8 @@ css_juventud = """
        BURBUJAS DE CHAT RE DISEÑADAS
        ═══════════════════════════════════════════════════════════════ */
     [data-testid="stChatMessage"] {
-        background: linear-gradient(135deg, rgba(74, 222, 128, 0.08) 0%, rgba(74, 222, 128, 0.02) 100%);
-        border: 1px solid rgba(74, 222, 128, 0.2);
+        background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(188, 19, 254, 0.05) 100%);
+        border: 1px solid rgba(0, 212, 255, 0.2);
         border-radius: 20px;
         padding: 1.25rem;
         margin-bottom: 1.25rem;
@@ -214,7 +219,7 @@ css_juventud = """
    
     [data-testid="stChatMessage"]:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(74, 222, 128, 0.15);
+        box-shadow: 0 8px 30px rgba(0, 212, 255, 0.15);
     }
    
     @keyframes bubbleIn {
@@ -230,20 +235,20 @@ css_juventud = """
    
     /* Avatar del asistente */
     [data-testid="stChatMessageAvatar-assistant"] {
-        background: linear-gradient(135deg, #4ade80 0%, #facc15 100%);
+        background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 100%);
         border-radius: 50%;
         padding: 8px;
     }
    
     [data-testid="stChatMessageContent"] {
-        color: #f0fdf4 !important;
+        color: #e0e0ff !important;
         font-family: 'Inter', sans-serif;
         font-size: 1rem;
         line-height: 1.7;
     }
 
     [data-testid="stChatMessageContent"] p {
-        color: #f0fdf4 !important;
+        color: #e0e0ff !important;
         margin: 0;
     }
 
@@ -251,36 +256,36 @@ css_juventud = """
        INPUT DE TEXTO RE DISEÑADO
        ═══════════════════════════════════════════════════════════════ */
     [data-testid="stChatInput"] {
-        border: 2px solid rgba(250, 204, 21, 0.3) !important;
+        border: 2px solid rgba(188, 19, 254, 0.4) !important;
         border-radius: 24px !important;
-        background: linear-gradient(135deg, rgba(2, 44, 34, 0.95) 0%, rgba(5, 46, 22, 0.9) 100%) !important;
+        background: linear-gradient(135deg, rgba(15, 12, 41, 0.95) 0%, rgba(48, 43, 99, 0.9) 100%) !important;
         backdrop-filter: blur(15px);
         transition: all 0.4s ease;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
    
     [data-testid="stChatInput"]:focus-within {
-        border-color: #facc15 !important;
-        box-shadow: 0 0 40px rgba(250, 204, 21, 0.2), 0 4px 20px rgba(0, 0, 0, 0.4);
+        border-color: #bc13fe !important;
+        box-shadow: 0 0 40px rgba(188, 19, 254, 0.25), 0 4px 20px rgba(0, 0, 0, 0.4);
         transform: translateY(-2px);
     }
    
     [data-testid="stChatInput"] textarea {
-        color: #f0fdf4 !important;
+        color: #e0e0ff !important;
         font-family: 'Inter', sans-serif;
         font-size: 1rem;
         padding: 1rem;
     }
    
     [data-testid="stChatInput"] textarea::placeholder {
-        color: #a7f3d0 !important;
+        color: #a29bfe !important;
         opacity: 0.8;
     }
 
     /* Botón de envío del input */
     [data-testid="stChatInput"] button {
-        background: linear-gradient(135deg, #facc15 0%, #fbbf24 100%) !important;
-        color: #022c22 !important;
+        background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 100%) !important;
+        color: #fff !important;
         border-radius: 50% !important;
         width: 44px !important;
         height: 44px !important;
@@ -289,16 +294,16 @@ css_juventud = """
 
     [data-testid="stChatInput"] button:hover {
         transform: scale(1.1) rotate(5deg);
-        box-shadow: 0 0 25px rgba(250, 204, 21, 0.5);
+        box-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
     }
 
     /* ═══════════════════════════════════════════════════════════════
        BOTONES NORMALES Y MICRÓFONO
        ═══════════════════════════════════════════════════════════════ */
     .stButton button, .st-key-mic_btn button {
-        background: linear-gradient(135deg, #facc15 0%, #fbbf24 50%, #facc15 100%) !important;
+        background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 50%, #00d4ff 100%) !important;
         background-size: 200% auto !important;
-        color: #022c22 !important;
+        color: #fff !important;
         font-family: 'Montserrat', sans-serif;
         font-weight: 700;
         border-radius: 50px !important;
@@ -313,7 +318,7 @@ css_juventud = """
 
     .stButton button:hover, .st-key-mic_btn button:hover {
         transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 10px 35px rgba(250, 204, 21, 0.4);
+        box-shadow: 0 10px 35px rgba(0, 212, 255, 0.4);
         background-position: right center !important;
     }
    
@@ -327,7 +332,7 @@ css_juventud = """
     [data-testid="stSidebar"] h2 {
         font-family: 'Montserrat', sans-serif !important;
         font-weight: 800 !important;
-        color: #facc15 !important;
+        color: #00d4ff !important;
         font-size: 1.5rem !important;
         text-align: center;
         margin-bottom: 1.5rem !important;
@@ -342,14 +347,14 @@ css_juventud = """
         transform: translateX(-50%);
         width: 60px;
         height: 3px;
-        background: linear-gradient(90deg, transparent, #facc15, transparent);
+        background: linear-gradient(90deg, transparent, #bc13fe, transparent);
         border-radius: 2px;
     }
 
     [data-testid="stSidebar"] h3 {
         font-family: 'Montserrat', sans-serif !important;
         font-weight: 600 !important;
-        color: #a7f3d0 !important;
+        color: #a29bfe !important;
         font-size: 1rem !important;
         margin-bottom: 0.75rem !important;
         display: flex;
@@ -361,89 +366,89 @@ css_juventud = """
        ALERTAS Y MENSAJES DE ESTADO
        ═══════════════════════════════════════════════════════════════ */
     .stAlert, [data-testid="stSuccess"], [data-testid="stInfo"], [data-testid="stWarning"] {
-        background: linear-gradient(135deg, rgba(5, 46, 22, 0.8) 0%, rgba(2, 44, 34, 0.6) 100%) !important;
+        background: linear-gradient(135deg, rgba(26, 26, 64, 0.8) 0%, rgba(15, 12, 41, 0.6) 100%) !important;
         border: none !important;
-        border-left: 4px solid #facc15 !important;
+        border-left: 4px solid #00d4ff !important;
         border-radius: 12px !important;
-        color: #f0fdf4 !important;
+        color: #e0e0ff !important;
         backdrop-filter: blur(10px);
         transition: all 0.3s ease;
     }
    
     .stAlert:hover, [data-testid="stSuccess"]:hover, [data-testid="stInfo"]:hover {
         transform: translateX(5px);
-        box-shadow: 0 5px 20px rgba(250, 204, 21, 0.1);
+        box-shadow: 0 5px 20px rgba(0, 212, 255, 0.15);
     }
    
     [data-testid="stSuccess"] {
-        border-left-color: #4ade80 !important;
+        border-left-color: #00d4ff !important;
     }
    
     [data-testid="stWarning"] {
-        border-left-color: #fbbf24 !important;
+        border-left-color: #bc13fe !important;
     }
 
     /* ═══════════════════════════════════════════════════════════════
        FILE UPLOADER PERSONALIZADO
        ═══════════════════════════════════════════════════════════════ */
     [data-testid="stFileUploader"] {
-        background: rgba(2, 44, 34, 0.5);
-        border: 2px dashed rgba(250, 204, 21, 0.3);
+        background: rgba(15, 12, 41, 0.5);
+        border: 2px dashed rgba(0, 212, 255, 0.3);
         border-radius: 16px;
         padding: 1rem;
         transition: all 0.3s ease;
     }
    
     [data-testid="stFileUploader"]:hover {
-        border-color: rgba(250, 204, 21, 0.6);
-        background: rgba(2, 44, 34, 0.8);
+        border-color: rgba(188, 19, 254, 0.6);
+        background: rgba(26, 26, 64, 0.8);
     }
    
     [data-testid="stFileUploader"] section {
-        color: #a7f3d0 !important;
+        color: #a29bfe !important;
     }
 
     /* ═══════════════════════════════════════════════════════════════
        CHECKBOX PERSONALIZADO
        ═══════════════════════════════════════════════════════════════ */
     .stCheckbox {
-        background: rgba(5, 46, 22, 0.4);
+        background: rgba(26, 26, 64, 0.4);
         border-radius: 12px;
         padding: 0.75rem 1rem;
         margin-bottom: 0.5rem;
-        border: 1px solid rgba(250, 204, 21, 0.1);
+        border: 1px solid rgba(0, 212, 255, 0.1);
         transition: all 0.3s ease;
     }
    
     .stCheckbox:hover {
-        border-color: rgba(250, 204, 21, 0.3);
-        background: rgba(5, 46, 22, 0.6);
+        border-color: rgba(188, 19, 254, 0.3);
+        background: rgba(26, 26, 64, 0.6);
     }
    
     .stCheckbox label {
-        color: #a7f3d0 !important;
+        color: #a29bfe !important;
     }
 
     /* ═══════════════════════════════════════════════════════════════
        EXPANDER PERSONALIZADO
        ═══════════════════════════════════════════════════════════════ */
     .streamlit-expanderHeader {
-        background: linear-gradient(135deg, rgba(5, 46, 22, 0.6) 0%, rgba(2, 44, 34, 0.4) 100%);
-        border: 1px solid rgba(250, 204, 21, 0.2);
+        background: linear-gradient(135deg, rgba(26, 26, 64, 0.6) 0%, rgba(15, 12, 41, 0.4) 100%);
+        border: 1px solid rgba(0, 212, 255, 0.2);
         border-radius: 12px !important;
-        color: #a7f3d0 !important;
+        color: #a29bfe !important;
         font-family: 'Inter', sans-serif;
         transition: all 0.3s ease;
     }
    
     .streamlit-expanderHeader:hover {
-        border-color: #facc15;
-        background: linear-gradient(135deg, rgba(5, 46, 22, 0.8) 0%, rgba(2, 44, 34, 0.6) 100%);
+        border-color: #bc13fe;
+        background: linear-gradient(135deg, rgba(26, 26, 64, 0.8) 0%, rgba(15, 12, 41, 0.6) 100%);
     }
    
     .streamlit-expanderContent {
-        background: rgba(2, 44, 34, 0.3);
-        border: 1px solid rgba(74, 222, 128, 0.1);
+        background: rgba(15, 12, 41, 0.3);
+        border: 1px solid rgba(0, 212, 255, 0.1);
         border-top: none;
         border-radius: 0 0 12px 12px;
     }
@@ -455,27 +460,27 @@ css_juventud = """
         width: 8px;
     }
     ::-webkit-scrollbar-track {
-        background: rgba(2, 44, 34, 0.5);
+        background: rgba(15, 12, 41, 0.5);
         border-radius: 10px;
     }
     ::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, #facc15, #fbbf24);
+        background: linear-gradient(180deg, #00d4ff, #bc13fe);
         border-radius: 10px;
     }
     ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(180deg, #fde68a, #facc15);
+        background: linear-gradient(180deg, #a29bfe, #bc13fe);
     }
 
     /* ═══════════════════════════════════════════════════════════════
        SPINNER Y LOADING PERSONALIZADO
        ═══════════════════════════════════════════════════════════════ */
     .stSpinner > div {
-        border-color: #facc15 transparent transparent transparent !important;
+        border-color: #bc13fe transparent transparent transparent !important;
     }
    
     .loading-message {
         font-family: 'Montserrat', sans-serif;
-        color: #facc15;
+        color: #00d4ff;
         text-align: center;
         padding: 2rem;
         animation: pulse 2s ease-in-out infinite;
@@ -490,8 +495,8 @@ css_juventud = """
        PRINCIPIOS CARDS
        ═══════════════════════════════════════════════════════════════ */
     .principle-card {
-        background: linear-gradient(135deg, rgba(5, 46, 22, 0.6) 0%, rgba(2, 44, 34, 0.4) 100%);
-        border: 1px solid rgba(250, 204, 21, 0.15);
+        background: linear-gradient(135deg, rgba(26, 26, 64, 0.6) 0%, rgba(15, 12, 41, 0.4) 100%);
+        border: 1px solid rgba(0, 212, 255, 0.15);
         border-radius: 16px;
         padding: 1rem 1.25rem;
         margin-bottom: 0.75rem;
@@ -500,9 +505,9 @@ css_juventud = """
     }
    
     .principle-card:hover {
-        border-color: rgba(250, 204, 21, 0.4);
+        border-color: rgba(188, 19, 254, 0.4);
         transform: translateX(8px);
-        box-shadow: 0 5px 25px rgba(250, 204, 21, 0.1);
+        box-shadow: 0 5px 25px rgba(0, 212, 255, 0.1);
     }
    
     .principle-card p {
@@ -516,14 +521,14 @@ css_juventud = """
        TOAST/TOAST NOTIFICATIONS
        ═══════════════════════════════════════════════════════════════ */
     [data-testid="stToast"] {
-        background: linear-gradient(135deg, rgba(2, 44, 34, 0.95) 0%, rgba(5, 46, 22, 0.9) 100%) !important;
-        border: 1px solid #facc15 !important;
+        background: linear-gradient(135deg, rgba(15, 12, 41, 0.95) 0%, rgba(26, 26, 64, 0.9) 100%) !important;
+        border: 1px solid #00d4ff !important;
         border-radius: 16px !important;
         backdrop-filter: blur(15px);
     }
    
     [data-testid="stToast"] p {
-        color: #f0fdf4 !important;
+        color: #e0e0ff !important;
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -570,7 +575,7 @@ css_juventud = """
 st.markdown(css_juventud, unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════
-# HTML PARA EL HEADER CON ÁGUILA SVG ANIMADA
+# HTML PARA EL HEADER CON ÁGUILA SVG ANIMADA (COLORES AZUL/MORADO)
 # ═══════════════════════════════════════════════════════════════
 
 header_html = """
@@ -579,8 +584,8 @@ header_html = """
         <svg viewBox="0 0 64 64" width="72" height="72" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <linearGradient id="eagleGradient" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#4ade80"/>
-                    <stop offset="100%" stop-color="#facc15"/>
+                    <stop offset="0%" stop-color="#00d4ff"/>
+                    <stop offset="100%" stop-color="#bc13fe"/>
                 </linearGradient>
                 <filter id="glow">
                     <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
@@ -592,12 +597,12 @@ header_html = """
             </defs>
             <path d="M32 8L8 24L16 28L8 40L20 36L16 52L32 40L48 52L44 36L56 40L48 28L56 24L32 8Z"
                   fill="url(#eagleGradient)"
-                  stroke="#facc15"
+                  stroke="#00d4ff"
                   stroke-width="1.5"
                   filter="url(#glow)"/>
-            <circle cx="26" cy="24" r="3" fill="#022c22"/>
-            <circle cx="38" cy="24" r="3" fill="#022c22"/>
-            <path d="M28 32L32 36L36 32" stroke="#022c22" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="26" cy="24" r="3" fill="#0f0c29"/>
+            <circle cx="38" cy="24" r="3" fill="#0f0c29"/>
+            <path d="M28 32L32 36L36 32" stroke="#0f0c29" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </div>
     <h1 class="main-title">JUVENTUD 2.0</h1>
@@ -699,7 +704,7 @@ if "initialized" not in st.session_state:
     init_container = st.empty()
     init_messages = [
         ("🦅", "Desplegando alas..."),
-        ("💛", "Sincronizando valores josefinos..."),
+        ("💜", "Sincronizando valores josefinos..."),
         ("✨", "Juventud 2.0 lista, Profe Adrián")
     ]
    
@@ -810,22 +815,22 @@ with st.sidebar:
    
     st.markdown("---")
    
-    # Principios con cards personalizados
+    # Principios con cards personalizados (AJUSTADOS A AZUL/MORADO)
     st.markdown("#### 📜 Principios Rectores")
    
     principle_1 = """
     <div class="principle-card">
-        <p style="color: #4ade80;">✨ Hacer siempre y en todo lo mejor</p>
+        <p style="color: #00d4ff;">✨ Hacer siempre y en todo lo mejor</p>
     </div>
     """
     principle_2 = """
     <div class="principle-card">
-        <p style="color: #facc15;">🚀 Adelante, siempre adelante</p>
+        <p style="color: #bc13fe;">🚀 Adelante, siempre adelante</p>
     </div>
     """
     principle_3 = """
     <div class="principle-card">
-        <p style="color: #a7f3d0;">🛠️ Estar siempre útilmente ocupados</p>
+        <p style="color: #a29bfe;">🛠️ Estar siempre útilmente ocupados</p>
     </div>
     """
    
@@ -903,3 +908,4 @@ for message in st.session_state.messages:
 # Input de Texto
 if prompt := st.chat_input("Escribe tu mensaje, joven josefino..."):
     process_user_input(prompt)
+```
