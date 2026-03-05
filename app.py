@@ -904,4 +904,3 @@ for message in st.session_state.messages:
 # Input de Texto
 if prompt := st.chat_input("Escribe tu mensaje, joven josefino..."):
     process_user_input(prompt)
-```
