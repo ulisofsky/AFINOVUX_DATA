@@ -366,7 +366,6 @@ def create_retriever_from_paths(pdf_paths):
 
 @st.cache_resource
 def load_knowledge_base():
-    """Carga inicial desde la carpeta 'documentos'"""
     pdf_files = glob.glob(os.path.join(DOCS_FOLDER, "*.pdf"))
     if not pdf_files:
         return None, []
