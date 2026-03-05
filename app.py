@@ -127,7 +127,7 @@ st.caption("Hasta los heroes más valerosos requieren asistencia divina...")
 st.caption("Reza a AFINOVUX, rey del panteon celeste, y espera a que la iluminación llegue a ti.")
 
 # Línea decorativa (Simula un eclipse)
-st.markdown("<div class='separator'>✦ —— Señor del Horizonte ☾ Padre del Alba —— ✦</div>", unsafe_allow_html=True)
+st.markdown("<div class='separator'>✦ ——  ☾  —— ✦</div>", unsafe_allow_html=True)
 
 # CONEXIÓN CON GROQ
 try:
