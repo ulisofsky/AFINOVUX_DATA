@@ -1,8 +1,4 @@
-¡Claro que sí! Para transformar la estética de tu IA "Juventud 2.0" a una paleta de colores **azul y morado (estilo cibernético/galaxy)**, necesitamos modificar principalmente el bloque de CSS y el SVG del águila en el encabezado.
 
-Aquí tienes el código completo con el nuevo estilo visual aplicado. He reemplazado los verdes y dorados por tonos eléctricos, índigo y violetas.
-
-```python
 import streamlit as st
 from openai import OpenAI
 import time
