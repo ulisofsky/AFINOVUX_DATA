@@ -3,7 +3,7 @@ from openai import OpenAI
 
 # CONFIGURACIÓN DE PÁGINA
 st.set_page_config(
-    page_title="El Santuario Solar",
+    page_title="El Santuario Solar | Cronicas del Plenilunio",
     page_icon="☀️",
     layout="centered",
     initial_sidebar_state="collapsed",
