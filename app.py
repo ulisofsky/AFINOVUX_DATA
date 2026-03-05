@@ -112,6 +112,40 @@ css_juventud = """
     }
     @keyframes eagleFloat { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
 
+    /* --- NUEVO: ESTILO DEL VIDEO CONTAINER --- */
+    .video-container {
+        display: flex;
+        justify-content: center;
+        margin: 1rem auto 2rem auto;
+        position: relative;
+        z-index: 10;
+        max-width: 700px;
+    }
+    .video-wrapper {
+        position: relative;
+        width: 100%;
+        padding: 4px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, #00d4ff, #bc13fe);
+        box-shadow: 0 0 25px rgba(0, 212, 255, 0.3);
+    }
+    .video-responsive {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        height: 0;
+        overflow: hidden;
+        border-radius: 16px;
+        background: #000;
+    }
+    .video-responsive iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #1a1a40 0%, #0f0c29 100%) !important;
         border-right: 1px solid rgba(0, 212, 255, 0.2);
@@ -251,6 +285,31 @@ header_html = """
 st.markdown(header_html, unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════
+# VIDEO MUSICAL DE BIENVENIDA (NUEVA SECCIÓN)
+# ═══════════════════════════════════════════════════════════════
+
+# Reemplaza 'dQw4w9WgXcQ' con el ID de tu video de YouTube (la parte después de v=)
+# Ejemplo: https://www.youtube.com/watch?v=VIDEO_ID_AQUI
+video_id = "dQw4w9WgXcQ" 
+
+video_html = f"""
+<div class="video-container">
+    <div class="video-wrapper">
+        <div class="video-responsive">
+            <iframe 
+                src="https://www.youtube.com/embed/{video_id}?rel=0" 
+                title="Video Musical Juventud 2.0" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</div>
+"""
+st.markdown(video_html, unsafe_allow_html=True)
+
+# ═══════════════════════════════════════════════════════════════
 # FUNCIONES DE VOZ (TTS)
 # ═══════════════════════════════════════════════════════════════
 
@@ -271,7 +330,6 @@ def speak_text(text):
 # PERSONALIDAD DE JUVENTUD 2.0
 # ═══════════════════════════════════════════════════════════════
 
-# CORREGIDO: Eliminadas comillas extra y duplicidad interna
 SYSTEM_PROMPT = """
 Eres **Juventud 2.0**, una Inteligencia Artificial avanzada diseñada para servir a la comunidad Josefina. Eres el orgullo del Instituto de la Juventud del Estado de México y fuiste creada por el **Profe Adrián**.
 
@@ -306,7 +364,6 @@ RECUERDA: Eres el rostro digital de una comunidad que busca el bien común. ¡Vu
 
 DOCS_FOLDER = "documentos"
 
-# CORREGIDO: Indentación del cuerpo de la función
 def create_retriever_from_paths(pdf_paths):
     all_docs = []
     valid_files = []
@@ -333,7 +390,6 @@ def create_retriever_from_paths(pdf_paths):
    
     return vectorstore.as_retriever(), valid_files
 
-# CORREGIDO: Indentación del cuerpo de la función
 @st.cache_resource
 def load_knowledge_base():
     pdf_files = glob.glob(os.path.join(DOCS_FOLDER, "*.pdf"))
