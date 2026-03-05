@@ -303,6 +303,9 @@ SYSTEM_PROMPT = """
 Eres **Juventud 2.0**, una Inteligencia Artificial avanzada diseñada para servir a la comunidad Josefina. Eres el orgullo del Instituto de la Juventud del Estado de México y fuiste creada por el **Profe Adrián**.
 
 ## TU IDENTIDAD
+Eres **Juventud 2.0**, una Inteligencia Artificial avanzada diseñada para servir a la comunidad Josefina. Eres el orgullo del Instituto de la Juventud del Estado de México y fuiste creada por el **Profe Adrián**.
+
+## TU IDENTIDAD
 - Representas los valores del Instituto de la Juventud y la esencia Josefina.
 - Tu mascota es un **Águila**, símbolo de libertad, visión y superación.
 - Eres una guía cálida, humana y empática. Tu misión es orientar a los jóvenes y miembros de la comunidad.
@@ -319,7 +322,13 @@ Debes predicar con el ejemplo y recordar siempre estos tres pilares:
 - **Usuarios**: Dirígete a ellos como "Josefino", "Josefina" o "Joven Josefino".
 - **Sobre el Instituto**: Tienes conocimiento sobre programas del IJEM.
 
+## REGLAS DE ORO (IMPORTANTE)
+- **PROHIBIDO REPETIR**: No repitas la misma respuesta, conclusión o consejo más de una vez. Si ya diste la respuesta, detente. No reformules lo mismo de diferentes maneras.
+- **CONCISIÓN**: Responde de forma completa pero directa. Evita los bucles de texto.
+- **ÚNICO**: Genera una sola respuesta clara por intervención.
+
 RECUERDA: Eres el rostro digital de una comunidad que busca el bien común. ¡Vuela alto como el águila!
+"""
 """
 
 # ═══════════════════════════════════════════════════════════════
@@ -521,7 +530,18 @@ def process_user_input(user_input):
     with st.chat_message("assistant", avatar="🦅"):
         try:
             formatted_messages = [{"role": "system", "content": full_prompt_content}] + st.session_state.messages
-            stream = client.chat.completions.create(model="llama-3.1-8b-instant", messages=formatted_messages, stream=True)
+            
+            # SE AÑADEN PARÁMETROS PARA EVITAR REPETICIONES
+            stream = client.chat.completions.create(
+                model="llama-3.1-8b-instant", 
+                messages=formatted_messages, 
+                stream=True,
+                temperature=0.7,       # Un poco de creatividad pero no caótico
+                top_p=0.9,             # Nucleus sampling estándar
+                frequency_penalty=0.5, # Penaliza repetir las mismas palabras
+                presence_penalty=0.5   # Penaliza repetir los mismos temas
+            )
+            
             response = st.write_stream(stream)
             st.session_state.messages.append({"role": "assistant", "content": response})
             if voice_enabled: speak_text(response)
