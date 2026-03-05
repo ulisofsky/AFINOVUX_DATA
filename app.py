@@ -24,68 +24,65 @@ st.set_page_config(
     menu_items={'Get Help': None, 'Report a bug': None, 'About': "Creado por el Profe Adrián para la comunidad Josefina"}
 )
 
-# CSS DINÁMICO Y MODERNO - TEMA AZUL Y MORADO
+# CSS CORREGIDO - TEMA AZUL Y MORADO (SIN PANTALLA BLANCA)
 css_juventud = """
 <style>
-    /* ═══════════════════════════════════════════════════════════════
-       IMPORTACIÓN DE FUENTES
-       ═══════════════════════════════════════════════════════════════ */
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Inter:wght@300;400;500;600&display=swap');
 
-    /* ═══════════════════════════════════════════════════════════════
-       OCULTAR ELEMENTOS INNECESARIOS DE STREAMLIT
-       ═══════════════════════════════════════════════════════════════ */
+    /* --- 1. FORZAR FONDO GLOBAL Y TEXTO --- */
+    /* Establece el color base para todo el cuerpo y html */
+    html, body, .stApp {
+        background-color: #0f0c29 !important;
+        color: #e0e0ff !important;
+    }
+
+    /* Selectores específicos de Streamlit para evitar el bloque blanco */
+    [data-testid="stAppViewContainer"], 
+    [data-testid="stMainBlockContainer"],
+    .stMainBlockContainer {
+        background-color: #0f0c29 !important;
+        color: #e0e0ff !important;
+    }
+    
+    /* Forzar bloque de contenido principal */
+    section.main .block-container {
+        background-color: #0f0c29 !important;
+        padding-top: 2rem !important;
+    }
+
+    /* Header y Footer invisibles */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
     [data-testid="stDecoration"] {display: none;}
     [data-testid="stToolbar"] {display: none;}
-   
+    [data-testid="stHeader"] {background-color: transparent !important;}
+
     /* ═══════════════════════════════════════════════════════════════
-       VARIABLES CSS Y FONDO ANIMADO (AZUL/MORADO)
+       VARIABLES Y EFECTOS VISUALES
        ═══════════════════════════════════════════════════════════════ */
     :root {
         --cyber-dark: #0a0a1a;
-        --cyber-darker: #050510;
         --deep-blue: #1a1a40;
         --neon-purple: #bc13fe;
         --neon-blue: #00d4ff;
         --soft-lavender: #a29bfe;
-        --glass-bg: rgba(26, 26, 64, 0.7);
     }
-   
-    /* Fondo principal con gradientes animados azul/morado */
-    .stApp {
-        background: linear-gradient(135deg, #050510 0%, #0f0c29 40%, #302b63 100%);
-        color: #e0e0ff;
-        position: relative;
-        overflow-x: hidden;
-    }
-   
-    /* Efecto de partículas flotantes */
+
+    /* Efecto de brillo de fondo */
     .stApp::before {
         content: '';
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        top: 0; left: 0; right: 0; bottom: 0;
         background:
-            radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.1) 0%, transparent 40%),
-            radial-gradient(circle at 80% 70%, rgba(188, 19, 254, 0.1) 0%, transparent 40%),
-            radial-gradient(circle at 50% 50%, rgba(162, 155, 254, 0.05) 0%, transparent 60%);
+            radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(188, 19, 254, 0.15) 0%, transparent 50%);
         pointer-events: none;
         z-index: 0;
-        animation: backgroundPulse 15s ease-in-out infinite;
-    }
-   
-    @keyframes backgroundPulse {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.8; transform: scale(1.02); }
     }
 
     /* ═══════════════════════════════════════════════════════════════
-       CABECERA PRINCIPAL CON ANIMACIÓN
+       HEADER
        ═══════════════════════════════════════════════════════════════ */
     .main-header {
         text-align: center;
@@ -94,19 +91,8 @@ css_juventud = """
         z-index: 10;
         animation: fadeInDown 0.8s ease-out;
     }
-   
-    @keyframes fadeInDown {
-        from {
-            opacity: 0;
-            transform: translateY(-30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-   
-    /* Título con gradiente animado Azul a Morado */
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+    
     .main-title {
         font-family: 'Montserrat', sans-serif;
         font-weight: 900;
@@ -115,455 +101,141 @@ css_juventud = """
         background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin: 0;
-        letter-spacing: 2px;
         animation: shimmer 4s linear infinite;
-        text-shadow: 0 0 40px rgba(0, 212, 255, 0.4);
     }
-   
-    @keyframes shimmer {
-        0% { background-position: 0% center; }
-        100% { background-position: 200% center; }
-    }
-   
+    @keyframes shimmer { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+    
     .subtitle {
         font-family: 'Inter', sans-serif;
         color: #a29bfe;
-        font-size: clamp(0.875rem, 2vw, 1.1rem);
         letter-spacing: 4px;
         text-transform: uppercase;
         margin-top: 0.5rem;
-        animation: fadeIn 1s ease-out 0.3s both;
     }
-   
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-   
-    /* Águila animada */
+    
     .eagle-container {
         display: flex;
         justify-content: center;
         margin-bottom: 1rem;
         animation: eagleFloat 4s ease-in-out infinite;
     }
-   
-    @keyframes eagleFloat {
-        0%, 100% { transform: translateY(0) rotate(-2deg); }
-        50% { transform: translateY(-10px) rotate(2deg); }
-    }
+    @keyframes eagleFloat { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
 
     /* ═══════════════════════════════════════════════════════════════
-       BARRA LATERAL (SIDEBAR) RE DISEÑADA
+       SIDEBAR
        ═══════════════════════════════════════════════════════════════ */
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #1a1a40 0%, #0f0c29 100%) !important;
         border-right: 1px solid rgba(0, 212, 255, 0.2);
-        position: relative;
     }
-   
-    [data-testid="stSidebar"]::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(circle at 50% 0%, rgba(188, 19, 254, 0.08) 0%, transparent 50%);
-        pointer-events: none;
-    }
-   
-    [data-testid="stSidebar"] > div {
-        position: relative;
-        z-index: 1;
-    }
-   
-    [data-testid="stSidebar"] .element-container {
-        margin-bottom: 1.25rem;
-        animation: slideInRight 0.6s ease-out;
-    }
-   
-    @keyframes slideInRight {
-        from {
-            opacity: 0;
-            transform: translateX(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
+    [data-testid="stSidebar"] * { color: #e0e0ff !important; }
+    [data-testid="stSidebar"] h2 { color: #00d4ff !important; font-family: 'Montserrat', sans-serif !important; font-weight: 800; }
+    [data-testid="stSidebar"] h3 { color: #a29bfe !important; }
 
     /* ═══════════════════════════════════════════════════════════════
-       BURBUJAS DE CHAT RE DISEÑADAS
+       ELEMENTOS DE CHAT
        ═══════════════════════════════════════════════════════════════ */
     [data-testid="stChatMessage"] {
-        background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(188, 19, 254, 0.05) 100%);
-        border: 1px solid rgba(0, 212, 255, 0.2);
+        background: rgba(26, 26, 64, 0.6) !important;
+        border: 1px solid rgba(0, 212, 255, 0.2) !important;
         border-radius: 20px;
         padding: 1.25rem;
         margin-bottom: 1.25rem;
         backdrop-filter: blur(12px);
-        position: relative;
-        overflow: hidden;
-        animation: bubbleIn 0.4s ease-out;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: #e0e0ff !important;
     }
-   
-    [data-testid="stChatMessage"]:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(0, 212, 255, 0.15);
-    }
-   
-    @keyframes bubbleIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-    }
-   
-    /* Avatar del asistente */
     [data-testid="stChatMessageAvatar-assistant"] {
         background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 100%);
-        border-radius: 50%;
-        padding: 8px;
     }
-   
-    [data-testid="stChatMessageContent"] {
-        color: #e0e0ff !important;
-        font-family: 'Inter', sans-serif;
-        font-size: 1rem;
-        line-height: 1.7;
-    }
-
     [data-testid="stChatMessageContent"] p {
         color: #e0e0ff !important;
-        margin: 0;
     }
 
     /* ═══════════════════════════════════════════════════════════════
-       INPUT DE TEXTO RE DISEÑADO
+       INPUTS Y BOTONES
        ═══════════════════════════════════════════════════════════════ */
     [data-testid="stChatInput"] {
         border: 2px solid rgba(188, 19, 254, 0.4) !important;
         border-radius: 24px !important;
-        background: linear-gradient(135deg, rgba(15, 12, 41, 0.95) 0%, rgba(48, 43, 99, 0.9) 100%) !important;
-        backdrop-filter: blur(15px);
-        transition: all 0.4s ease;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        background: #1a1a40 !important;
     }
-   
-    [data-testid="stChatInput"]:focus-within {
-        border-color: #bc13fe !important;
-        box-shadow: 0 0 40px rgba(188, 19, 254, 0.25), 0 4px 20px rgba(0, 0, 0, 0.4);
-        transform: translateY(-2px);
-    }
-   
     [data-testid="stChatInput"] textarea {
-        color: #e0e0ff !important;
-        font-family: 'Inter', sans-serif;
-        font-size: 1rem;
-        padding: 1rem;
+        color: #ffffff !important;
+        background: transparent !important;
     }
-   
     [data-testid="stChatInput"] textarea::placeholder {
         color: #a29bfe !important;
-        opacity: 0.8;
     }
-
-    /* Botón de envío del input */
     [data-testid="stChatInput"] button {
         background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 100%) !important;
-        color: #fff !important;
-        border-radius: 50% !important;
-        width: 44px !important;
-        height: 44px !important;
-        transition: all 0.3s ease;
     }
 
-    [data-testid="stChatInput"] button:hover {
-        transform: scale(1.1) rotate(5deg);
-        box-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
-    }
-
-    /* ═══════════════════════════════════════════════════════════════
-       BOTONES NORMALES Y MICRÓFONO
-       ═══════════════════════════════════════════════════════════════ */
     .stButton button, .st-key-mic_btn button {
-        background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 50%, #00d4ff 100%) !important;
-        background-size: 200% auto !important;
-        color: #fff !important;
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 700;
+        background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 100%) !important;
+        color: #ffffff !important;
         border-radius: 50px !important;
         border: none !important;
-        padding: 0.875rem 1.75rem !important;
-        width: 100%;
-        transition: all 0.4s ease;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 0.85rem;
-    }
-
-    .stButton button:hover, .st-key-mic_btn button:hover {
-        transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 10px 35px rgba(0, 212, 255, 0.4);
-        background-position: right center !important;
-    }
-   
-    .stButton button:active, .st-key-mic_btn button:active {
-        transform: translateY(-1px) scale(0.98);
-    }
-
-    /* ═══════════════════════════════════════════════════════════════
-       TÍTULOS DEL SIDEBAR
-       ═══════════════════════════════════════════════════════════════ */
-    [data-testid="stSidebar"] h2 {
-        font-family: 'Montserrat', sans-serif !important;
-        font-weight: 800 !important;
-        color: #00d4ff !important;
-        font-size: 1.5rem !important;
-        text-align: center;
-        margin-bottom: 1.5rem !important;
-        position: relative;
-    }
-   
-    [data-testid="stSidebar"] h2::after {
-        content: '';
-        position: absolute;
-        bottom: -8px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60px;
-        height: 3px;
-        background: linear-gradient(90deg, transparent, #bc13fe, transparent);
-        border-radius: 2px;
-    }
-
-    [data-testid="stSidebar"] h3 {
-        font-family: 'Montserrat', sans-serif !important;
-        font-weight: 600 !important;
-        color: #a29bfe !important;
-        font-size: 1rem !important;
-        margin-bottom: 0.75rem !important;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    /* ═══════════════════════════════════════════════════════════════
-       ALERTAS Y MENSAJES DE ESTADO
-       ═══════════════════════════════════════════════════════════════ */
-    .stAlert, [data-testid="stSuccess"], [data-testid="stInfo"], [data-testid="stWarning"] {
-        background: linear-gradient(135deg, rgba(26, 26, 64, 0.8) 0%, rgba(15, 12, 41, 0.6) 100%) !important;
-        border: none !important;
-        border-left: 4px solid #00d4ff !important;
-        border-radius: 12px !important;
-        color: #e0e0ff !important;
-        backdrop-filter: blur(10px);
         transition: all 0.3s ease;
     }
-   
-    .stAlert:hover, [data-testid="stSuccess"]:hover, [data-testid="stInfo"]:hover {
-        transform: translateX(5px);
-        box-shadow: 0 5px 20px rgba(0, 212, 255, 0.15);
-    }
-   
-    [data-testid="stSuccess"] {
-        border-left-color: #00d4ff !important;
-    }
-   
-    [data-testid="stWarning"] {
-        border-left-color: #bc13fe !important;
+    .stButton button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
     }
 
     /* ═══════════════════════════════════════════════════════════════
-       FILE UPLOADER PERSONALIZADO
+       OTROS ELEMENTOS
        ═══════════════════════════════════════════════════════════════ */
+    /* File Uploader */
     [data-testid="stFileUploader"] {
-        background: rgba(15, 12, 41, 0.5);
-        border: 2px dashed rgba(0, 212, 255, 0.3);
+        background: rgba(26, 26, 64, 0.5) !important;
+        border: 2px dashed rgba(0, 212, 255, 0.3) !important;
         border-radius: 16px;
         padding: 1rem;
-        transition: all 0.3s ease;
     }
-   
-    [data-testid="stFileUploader"]:hover {
-        border-color: rgba(188, 19, 254, 0.6);
-        background: rgba(26, 26, 64, 0.8);
-    }
-   
-    [data-testid="stFileUploader"] section {
-        color: #a29bfe !important;
-    }
-
-    /* ═══════════════════════════════════════════════════════════════
-       CHECKBOX PERSONALIZADO
-       ═══════════════════════════════════════════════════════════════ */
+    [data-testid="stFileUploader"] section { color: #a29bfe !important; }
+    
+    /* Checkbox */
     .stCheckbox {
-        background: rgba(26, 26, 64, 0.4);
+        background: rgba(26, 26, 64, 0.4) !important;
         border-radius: 12px;
         padding: 0.75rem 1rem;
-        margin-bottom: 0.5rem;
         border: 1px solid rgba(0, 212, 255, 0.1);
-        transition: all 0.3s ease;
-    }
-   
-    .stCheckbox:hover {
-        border-color: rgba(188, 19, 254, 0.3);
-        background: rgba(26, 26, 64, 0.6);
-    }
-   
-    .stCheckbox label {
-        color: #a29bfe !important;
     }
 
-    /* ═══════════════════════════════════════════════════════════════
-       EXPANDER PERSONALIZADO
-       ═══════════════════════════════════════════════════════════════ */
+    /* Expander */
     .streamlit-expanderHeader {
-        background: linear-gradient(135deg, rgba(26, 26, 64, 0.6) 0%, rgba(15, 12, 41, 0.4) 100%);
-        border: 1px solid rgba(0, 212, 255, 0.2);
+        background: rgba(26, 26, 64, 0.8) !important;
+        border: 1px solid rgba(0, 212, 255, 0.2) !important;
         border-radius: 12px !important;
         color: #a29bfe !important;
-        font-family: 'Inter', sans-serif;
-        transition: all 0.3s ease;
     }
-   
-    .streamlit-expanderHeader:hover {
-        border-color: #bc13fe;
-        background: linear-gradient(135deg, rgba(26, 26, 64, 0.8) 0%, rgba(15, 12, 41, 0.6) 100%);
-    }
-   
     .streamlit-expanderContent {
-        background: rgba(15, 12, 41, 0.3);
-        border: 1px solid rgba(0, 212, 255, 0.1);
-        border-top: none;
+        background: rgba(15, 12, 41, 0.6) !important;
         border-radius: 0 0 12px 12px;
     }
 
-    /* ═══════════════════════════════════════════════════════════════
-       SCROLLBAR PERSONALIZADA
-       ═══════════════════════════════════════════════════════════════ */
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-        background: rgba(15, 12, 41, 0.5);
-        border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, #00d4ff, #bc13fe);
-        border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(180deg, #a29bfe, #bc13fe);
+    /* Spinner */
+    .stSpinner > div { border-color: #bc13fe transparent transparent transparent !important; }
+    
+    /* Toast */
+    [data-testid="stToast"] {
+        background: #1a1a40 !important;
+        border: 1px solid #00d4ff !important;
+        color: #e0e0ff !important;
     }
 
-    /* ═══════════════════════════════════════════════════════════════
-       SPINNER Y LOADING PERSONALIZADO
-       ═══════════════════════════════════════════════════════════════ */
-    .stSpinner > div {
-        border-color: #bc13fe transparent transparent transparent !important;
-    }
-   
-    .loading-message {
-        font-family: 'Montserrat', sans-serif;
-        color: #00d4ff;
-        text-align: center;
-        padding: 2rem;
-        animation: pulse 2s ease-in-out infinite;
-    }
-   
-    @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
-    }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0f0c29; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #00d4ff, #bc13fe); border-radius: 10px; }
 
-    /* ═══════════════════════════════════════════════════════════════
-       PRINCIPIOS CARDS
-       ═══════════════════════════════════════════════════════════════ */
+    /* Principios Cards */
     .principle-card {
-        background: linear-gradient(135deg, rgba(26, 26, 64, 0.6) 0%, rgba(15, 12, 41, 0.4) 100%);
+        background: rgba(26, 26, 64, 0.6);
         border: 1px solid rgba(0, 212, 255, 0.15);
         border-radius: 16px;
         padding: 1rem 1.25rem;
         margin-bottom: 0.75rem;
-        transition: all 0.3s ease;
-        cursor: default;
-    }
-   
-    .principle-card:hover {
-        border-color: rgba(188, 19, 254, 0.4);
-        transform: translateX(8px);
-        box-shadow: 0 5px 25px rgba(0, 212, 255, 0.1);
-    }
-   
-    .principle-card p {
-        margin: 0;
-        font-family: 'Inter', sans-serif;
-        font-weight: 500;
-        font-size: 0.9rem;
-    }
-
-    /* ═══════════════════════════════════════════════════════════════
-       TOAST/TOAST NOTIFICATIONS
-       ═══════════════════════════════════════════════════════════════ */
-    [data-testid="stToast"] {
-        background: linear-gradient(135deg, rgba(15, 12, 41, 0.95) 0%, rgba(26, 26, 64, 0.9) 100%) !important;
-        border: 1px solid #00d4ff !important;
-        border-radius: 16px !important;
-        backdrop-filter: blur(15px);
-    }
-   
-    [data-testid="stToast"] p {
-        color: #e0e0ff !important;
-    }
-
-    /* ═══════════════════════════════════════════════════════════════
-       RESPONSIVE - MÓVIL PRIMERO
-       ═══════════════════════════════════════════════════════════════ */
-    @media (max-width: 768px) {
-        .main-title {
-            font-size: 2rem !important;
-            letter-spacing: 1px;
-        }
-       
-        .subtitle {
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-        }
-       
-        [data-testid="stChatMessage"] {
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-       
-        [data-testid="stSidebar"] h2 {
-            font-size: 1.25rem !important;
-        }
-       
-        .stButton button, .st-key-mic_btn button {
-            padding: 0.75rem 1.25rem !important;
-            font-size: 0.8rem;
-        }
-    }
-
-    /* ═══════════════════════════════════════════════════════════════
-       REDUCED MOTION - ACCESIBILIDAD
-       ═══════════════════════════════════════════════════════════════ */
-    @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-        }
     }
 </style>
 """
@@ -706,7 +378,7 @@ if "initialized" not in st.session_state:
     for icon, msg in init_messages:
         init_container.markdown(
             f"""
-            <div class="loading-message">
+            <div style="text-align: center; padding: 2rem; font-family: 'Montserrat', sans-serif; color: #00d4ff;">
                 <span style="font-size: 2rem;">{icon}</span><br>
                 <span>{msg}</span>
             </div>
@@ -740,7 +412,6 @@ if "messages" not in st.session_state:
 # ═══════════════════════════════════════════════════════════════
 
 with st.sidebar:
-    # Título del Sidebar
     st.markdown("<h2>🦅 Panel Josefino</h2>", unsafe_allow_html=True)
    
     # --- MICRÓFONO ---
@@ -810,24 +481,12 @@ with st.sidebar:
    
     st.markdown("---")
    
-    # Principios con cards personalizados (AJUSTADOS A AZUL/MORADO)
+    # Principios
     st.markdown("#### 📜 Principios Rectores")
    
-    principle_1 = """
-    <div class="principle-card">
-        <p style="color: #00d4ff;">✨ Hacer siempre y en todo lo mejor</p>
-    </div>
-    """
-    principle_2 = """
-    <div class="principle-card">
-        <p style="color: #bc13fe;">🚀 Adelante, siempre adelante</p>
-    </div>
-    """
-    principle_3 = """
-    <div class="principle-card">
-        <p style="color: #a29bfe;">🛠️ Estar siempre útilmente ocupados</p>
-    </div>
-    """
+    principle_1 = """<div class="principle-card"><p style="color: #00d4ff;">✨ Hacer siempre y en todo lo mejor</p></div>"""
+    principle_2 = """<div class="principle-card"><p style="color: #bc13fe;">🚀 Adelante, siempre adelante</p></div>"""
+    principle_3 = """<div class="principle-card"><p style="color: #a29bfe;">🛠️ Estar siempre útilmente ocupados</p></div>"""
    
     st.markdown(principle_1, unsafe_allow_html=True)
     st.markdown(principle_2, unsafe_allow_html=True)
@@ -836,9 +495,9 @@ with st.sidebar:
     # Créditos
     st.markdown("""
         <br>
-        <p style='text-align:center; font-size:0.8rem; color:#555; font-family: Inter, sans-serif;'>
+        <p style='text-align:center; font-size:0.8rem; color:#a29bfe; font-family: Inter, sans-serif;'>
             Diseñado por el Profe Adrián<br>
-            <span style='font-size:0.7rem; color:#444;'>Instituto de la Juventud del Estado de México</span>
+            <span style='font-size:0.7rem;'>Instituto de la Juventud del Estado de México</span>
         </p>
     """, unsafe_allow_html=True)
 
