@@ -30,13 +30,12 @@ css_juventud = """
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Inter:wght@300;400;500;600&display=swap');
 
     /* --- 1. FORZAR FONDO GLOBAL Y TEXTO --- */
-    /* Establece el color base para todo el cuerpo y html */
     html, body, .stApp {
         background-color: #0f0c29 !important;
         color: #e0e0ff !important;
     }
 
-    /* Selectores específicos de Streamlit para evitar el bloque blanco */
+    /* Selectores específicos de Streamlit */
     [data-testid="stAppViewContainer"], 
     [data-testid="stMainBlockContainer"],
     .stMainBlockContainer {
@@ -44,7 +43,6 @@ css_juventud = """
         color: #e0e0ff !important;
     }
     
-    /* Forzar bloque de contenido principal */
     section.main .block-container {
         background-color: #0f0c29 !important;
         padding-top: 2rem !important;
@@ -58,9 +56,6 @@ css_juventud = """
     [data-testid="stToolbar"] {display: none;}
     [data-testid="stHeader"] {background-color: transparent !important;}
 
-    /* ═══════════════════════════════════════════════════════════════
-       VARIABLES Y EFECTOS VISUALES
-       ═══════════════════════════════════════════════════════════════ */
     :root {
         --cyber-dark: #0a0a1a;
         --deep-blue: #1a1a40;
@@ -69,7 +64,6 @@ css_juventud = """
         --soft-lavender: #a29bfe;
     }
 
-    /* Efecto de brillo de fondo */
     .stApp::before {
         content: '';
         position: fixed;
@@ -81,9 +75,6 @@ css_juventud = """
         z-index: 0;
     }
 
-    /* ═══════════════════════════════════════════════════════════════
-       HEADER
-       ═══════════════════════════════════════════════════════════════ */
     .main-header {
         text-align: center;
         padding: 2rem 1rem 1rem 1rem;
@@ -121,9 +112,6 @@ css_juventud = """
     }
     @keyframes eagleFloat { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
 
-    /* ═══════════════════════════════════════════════════════════════
-       SIDEBAR
-       ═══════════════════════════════════════════════════════════════ */
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #1a1a40 0%, #0f0c29 100%) !important;
         border-right: 1px solid rgba(0, 212, 255, 0.2);
@@ -132,9 +120,6 @@ css_juventud = """
     [data-testid="stSidebar"] h2 { color: #00d4ff !important; font-family: 'Montserrat', sans-serif !important; font-weight: 800; }
     [data-testid="stSidebar"] h3 { color: #a29bfe !important; }
 
-    /* ═══════════════════════════════════════════════════════════════
-       ELEMENTOS DE CHAT
-       ═══════════════════════════════════════════════════════════════ */
     [data-testid="stChatMessage"] {
         background: rgba(26, 26, 64, 0.6) !important;
         border: 1px solid rgba(0, 212, 255, 0.2) !important;
@@ -151,9 +136,6 @@ css_juventud = """
         color: #e0e0ff !important;
     }
 
-    /* ═══════════════════════════════════════════════════════════════
-       INPUTS Y BOTONES
-       ═══════════════════════════════════════════════════════════════ */
     [data-testid="stChatInput"] {
         border: 2px solid rgba(188, 19, 254, 0.4) !important;
         border-radius: 24px !important;
@@ -182,10 +164,6 @@ css_juventud = """
         box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
     }
 
-    /* ═══════════════════════════════════════════════════════════════
-       OTROS ELEMENTOS
-       ═══════════════════════════════════════════════════════════════ */
-    /* File Uploader */
     [data-testid="stFileUploader"] {
         background: rgba(26, 26, 64, 0.5) !important;
         border: 2px dashed rgba(0, 212, 255, 0.3) !important;
@@ -194,7 +172,6 @@ css_juventud = """
     }
     [data-testid="stFileUploader"] section { color: #a29bfe !important; }
     
-    /* Checkbox */
     .stCheckbox {
         background: rgba(26, 26, 64, 0.4) !important;
         border-radius: 12px;
@@ -202,7 +179,6 @@ css_juventud = """
         border: 1px solid rgba(0, 212, 255, 0.1);
     }
 
-    /* Expander */
     .streamlit-expanderHeader {
         background: rgba(26, 26, 64, 0.8) !important;
         border: 1px solid rgba(0, 212, 255, 0.2) !important;
@@ -214,22 +190,18 @@ css_juventud = """
         border-radius: 0 0 12px 12px;
     }
 
-    /* Spinner */
     .stSpinner > div { border-color: #bc13fe transparent transparent transparent !important; }
     
-    /* Toast */
     [data-testid="stToast"] {
         background: #1a1a40 !important;
         border: 1px solid #00d4ff !important;
         color: #e0e0ff !important;
     }
 
-    /* Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #0f0c29; }
     ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #00d4ff, #bc13fe); border-radius: 10px; }
 
-    /* Principios Cards */
     .principle-card {
         background: rgba(26, 26, 64, 0.6);
         border: 1px solid rgba(0, 212, 255, 0.15);
@@ -242,7 +214,7 @@ css_juventud = """
 st.markdown(css_juventud, unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════
-# HTML PARA EL HEADER CON ÁGUILA SVG ANIMADA (COLORES AZUL/MORADO)
+# HTML PARA EL HEADER CON ÁGUILA SVG ANIMADA
 # ═══════════════════════════════════════════════════════════════
 
 header_html = """
@@ -299,10 +271,8 @@ def speak_text(text):
 # PERSONALIDAD DE JUVENTUD 2.0
 # ═══════════════════════════════════════════════════════════════
 
+# CORREGIDO: Eliminadas comillas extra y duplicidad interna
 SYSTEM_PROMPT = """
-Eres **Juventud 2.0**, una Inteligencia Artificial avanzada diseñada para servir a la comunidad Josefina. Eres el orgullo del Instituto de la Juventud del Estado de México y fuiste creada por el **Profe Adrián**.
-
-## TU IDENTIDAD
 Eres **Juventud 2.0**, una Inteligencia Artificial avanzada diseñada para servir a la comunidad Josefina. Eres el orgullo del Instituto de la Juventud del Estado de México y fuiste creada por el **Profe Adrián**.
 
 ## TU IDENTIDAD
@@ -329,7 +299,6 @@ Debes predicar con el ejemplo y recordar siempre estos tres pilares:
 
 RECUERDA: Eres el rostro digital de una comunidad que busca el bien común. ¡Vuela alto como el águila!
 """
-"""
 
 # ═══════════════════════════════════════════════════════════════
 # FUNCIONES PARA CARGAR PDFs Y ZIPS
@@ -337,8 +306,8 @@ RECUERDA: Eres el rostro digital de una comunidad que busca el bien común. ¡Vu
 
 DOCS_FOLDER = "documentos"
 
+# CORREGIDO: Indentación del cuerpo de la función
 def create_retriever_from_paths(pdf_paths):
-    
     all_docs = []
     valid_files = []
    
@@ -364,6 +333,7 @@ def create_retriever_from_paths(pdf_paths):
    
     return vectorstore.as_retriever(), valid_files
 
+# CORREGIDO: Indentación del cuerpo de la función
 @st.cache_resource
 def load_knowledge_base():
     pdf_files = glob.glob(os.path.join(DOCS_FOLDER, "*.pdf"))
@@ -530,15 +500,15 @@ def process_user_input(user_input):
         try:
             formatted_messages = [{"role": "system", "content": full_prompt_content}] + st.session_state.messages
             
-            # SE AÑADEN PARÁMETROS PARA EVITAR REPETICIONES
+            # PARÁMETROS PARA EVITAR REPETICIONES
             stream = client.chat.completions.create(
                 model="llama-3.1-8b-instant", 
                 messages=formatted_messages, 
                 stream=True,
-                temperature=0.7,       # Un poco de creatividad pero no caótico
-                top_p=0.9,             # Nucleus sampling estándar
-                frequency_penalty=0.5, # Penaliza repetir las mismas palabras
-                presence_penalty=0.5   # Penaliza repetir los mismos temas
+                temperature=0.7,       
+                top_p=0.9,             
+                frequency_penalty=0.5, 
+                presence_penalty=0.5   
             )
             
             response = st.write_stream(stream)
