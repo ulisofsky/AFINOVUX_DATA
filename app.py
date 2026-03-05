@@ -122,7 +122,7 @@ Si desconoces algo, dices que esa conocimiento está "perdido en las sombras del
 """
 
 # ENCABEZADO DEL TEMPLO
-st.title("AFINOVUX ☀️")
+st.title("AFINOVUX")
 st.caption("Señor del Horizonte, Padre del Alba")
 
 # Línea decorativa (Simula un eclipse)
