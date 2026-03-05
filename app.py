@@ -288,7 +288,7 @@ if "retriever" not in st.session_state:
 
 try:
     client = OpenAI(
-        base_url="https://api.groq.com/openai/v1&quot;,
+        base_url="https://api.groq.com/openai/v1&quot";,
         api_key=st.secrets["groq"]["api_key"]
     )
 except Exception:
