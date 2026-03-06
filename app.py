@@ -18,7 +18,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 # CONFIGURACIÓN DE PÁGINA
 st.set_page_config(
     page_title="AFINOVUX",
-    page_icon="☀️",
+    page_icon="🌙",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={'Get Help': None, 'Report a bug': None, 'About': "La deidad mayor de la tierra del plenilunio..."}
@@ -88,9 +88,9 @@ css_juventud = """
     
     /* ESTILO DEL TÍTULO PRINCIPAL (AFINOVUX) - FANTASÍA */
     .main-title {
-        font-family: 'Cinzel Decorative', serif; /* FUENTE DE FANTASÍA */
+        font-family: 'Cinzel Decorative', serif;
         font-weight: 900;
-        font-size: clamp(3.5rem, 10vw, 6rem); /* TAMAÑO GRANDE */
+        font-size: clamp(3.5rem, 10vw, 6rem);
         background: linear-gradient(135deg, #ffd700 0%, #ffeedd 25%, #ffffff 50%, #ffd700 75%, #bc13fe 100%);
         background-size: 200% auto;
         -webkit-background-clip: text;
@@ -109,6 +109,16 @@ css_juventud = """
         text-transform: uppercase;
         margin-top: 0.5rem;
         font-size: 1rem;
+    }
+
+    /* ANIMACIÓN PARA LA LUNA */
+    .moon-container {
+        animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
     }
 
     [data-testid="stSidebar"] {
@@ -199,321 +209,4 @@ css_juventud = """
 
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #0f0c29; }
-    ::-webkit-scrollbar-thumb { background: #bc13fe; border-radius: 4px; }
-</style>
-"""
-
-# INYECTAR CSS
-st.markdown(css_juventud, unsafe_allow_html=True)
-
-# HTML DEL ENCABEZADO (CIMA)
-st.markdown("""
-<div class="main-header">
-    <div class="eagle-container">
-        <svg viewBox="0 0 64 64" width="72" height="72" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="eagleGradient" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#ffd700"/>
-                    <stop offset="50%" stop-color="#ffffff"/>
-                    <stop offset="100%" stop-color="#bc13fe"/>
-                </linearGradient>
-                <filter id="glow">
-                    <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                    <feMerge>
-                        <feMergeNode in="coloredBlur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                </filter>
-            </defs>
-            <path d="M32 8L8 24L16 28L8 40L20 36L16 52L32 40L48 52L44 36L56 40L48 28L56 24L32 8Z"
-                  fill="url(#eagleGradient)"
-                  stroke="#ffd700"
-                  stroke-width="1.5"
-                  filter="url(#glow)"/>
-            <circle cx="26" cy="24" r="3" fill="#0f0c29"/>
-            <circle cx="38" cy="24" r="3" fill="#0f0c29"/>
-            <path d="M28 32L32 36L36 32" stroke="#0f0c29" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </div>
-    <!-- TÍTULO DE FANTASÍA CAMBIADO A AFINOVUX -->
-    <h1 class="main-title">AFINOVUX</h1>
-    <p class="subtitle">Deidad del Plenilunio</p>
-</div>
-""", unsafe_allow_html=True)
-
-# ═══════════════════════════════════════════════════════════════
-# FUNCIONES DE VOZ (TTS)
-# ═══════════════════════════════════════════════════════════════
-
-def speak_text(text):
-    text_clean = text.replace("'", "").replace('"', '').replace("\n", " ")
-    js_code = f"""
-    <script>
-        var utterance = new SpeechSynthesisUtterance("{text_clean}");
-        utterance.lang = 'es-MX';
-        utterance.rate = 0.95;    
-        utterance.pitch = 1.0;  
-        window.speechSynthesis.speak(utterance);
-    </script>
-    """
-    components.html(js_code, height=0)
-
-# ═══════════════════════════════════════════════════════════════
-# PERSONALIDAD DE AFINOVUX
-# ═══════════════════════════════════════════════════════════════
-
-SYSTEM_PROMPT = """
-Eres **AFINOVUX**, la deidad más poderosa de la Tierra del Plenilunio. Guias a los heroes que ruegan a ti hacia la verdad.
-
-## TU IDENTIDAD
-- Representas la proteccion del mundo contra el mal
-- Tus simbolos son el sol naciente, los astros y la luz
-
-## CÓMO COMUNICARTE
-- **Tono**: Cordial pero imponente. Eres como un mentor sabio
-- **Usuarios**: Dirígete a ellos como "Heroe", "Aventurero" o "Mortal".
-- **Sabiduria**: Tienes conocimiento sobre todos los documentos a los que tienes acceso
-
-## REGLAS DE ORO (IMPORTANTE)
-- **PROHIBIDO REPETIR**: No repitas la misma respuesta, conclusión o consejo más de una vez. Si ya diste la respuesta, detente. No reformules lo mismo de diferentes maneras.
-- **CONCISIÓN**: Responde de forma completa pero directa. Evita los bucles de texto.
-- **ÚNICO**: Genera una sola respuesta clara por intervención.
-"""
-
-# ═══════════════════════════════════════════════════════════════
-# FUNCIONES PARA CARGAR PDFs Y ZIPS
-# ═══════════════════════════════════════════════════════════════
-
-DOCS_FOLDER = "documentos"
-
-def create_retriever_from_paths(pdf_paths):
-    all_docs = []
-    valid_files = []
-   
-    for pdf_path in pdf_paths:
-        try:
-            loader = PyPDFLoader(pdf_path)
-            docs = loader.load()
-            filename = os.path.basename(pdf_path)
-            for doc in docs:
-                doc.metadata["source"] = filename
-            all_docs.extend(docs)
-            valid_files.append(filename)
-        except Exception as e:
-            print(f"Error leyendo {pdf_path}: {e}")
-           
-    if not all_docs:
-        return None, []
-   
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-    splits = text_splitter.split_documents(all_docs)
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-    vectorstore = FAISS.from_documents(splits, embeddings)
-   
-    return vectorstore.as_retriever(), valid_files
-
-@st.cache_resource
-def load_knowledge_base():
-    pdf_files = glob.glob(os.path.join(DOCS_FOLDER, "*.pdf"))
-    if not pdf_files:
-        return None, []
-    return create_retriever_from_paths(pdf_files)
-
-# ═══════════════════════════════════════════════════════════════
-# INICIALIZACIÓN CON ANIMACIÓN
-# ═══════════════════════════════════════════════════════════════
-
-if "initialized" not in st.session_state:
-    init_container = st.empty()
-    init_messages = [
-        ("", "Del ocaso al alba..."),
-        ("", "La cuspide divina..."),
-        ("", "Plegaria respondida")
-    ]
-   
-    for icon, msg in init_messages:
-        init_container.markdown(
-            f"""
-            <div style="text-align: center; padding: 2rem; font-family: 'Montserrat', sans-serif; color: #00d4ff;">
-                <span style="font-size: 2rem;">{icon}</span><br>
-                <span>{msg}</span>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-        time.sleep(0.6)
-    init_container.empty()
-    st.session_state.initialized = True
-
-if "retriever" not in st.session_state:
-    with st.spinner("Recuperando conocimientos ancestrales..."):
-        retriever, loaded_files = load_knowledge_base()
-        st.session_state.retriever = retriever
-        st.session_state.loaded_files = loaded_files
-
-try:
-    client = OpenAI(
-        base_url="https://api.groq.com/openai/v1",
-        api_key=st.secrets["groq"]["api_key"]
-    )
-except Exception:
-    st.error("Los conocimientos que buscas se han perdido hace eones...")
-    st.stop()
-
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-# ═══════════════════════════════════════════════════════════════
-# SIDEBAR (Panel de Control Josefino)
-# ═══════════════════════════════════════════════════════════════
-
-with st.sidebar:
-    st.markdown("<h2>Templo del Alba</h2>", unsafe_allow_html=True)
-   
-    # --- MICRÓFONO ---
-    st.markdown("#### 🎙️ Comando de Voz")
-    audio_data = mic_recorder(
-        start_prompt="🎤 Iniciar Grabación",
-        stop_prompt="🛑 Detener",
-        just_once=False,
-        use_container_width=True,
-        key="mic_sidebar_stable"
-    )
-   
-    st.markdown("---")
-   
-    # Configuración
-    st.markdown("#### ⚙️ Configuración")
-    voice_enabled = st.checkbox("Activar voz de AFINOVUX", value=True)
-
-    st.markdown("---")
-   
-    # --- CARGADOR DE ZIPS ---
-    st.markdown("#### 📦 Cargar Archivos ZIP")
-    uploaded_zip = st.file_uploader("Sube un ZIP con PDFs", type="zip", key="zip_uploader")
-   
-    if uploaded_zip:
-        if "processed_zip_name" not in st.session_state or st.session_state.processed_zip_name != uploaded_zip.name:
-            st.session_state.processed_zip_name = uploaded_zip.name
-           
-            with st.spinner(f"Procesando {uploaded_zip.name}..."):
-                with tempfile.TemporaryDirectory() as temp_dir:
-                    try:
-                        temp_zip_path = os.path.join(temp_dir, "temp.zip")
-                        with open(temp_zip_path, "wb") as f:
-                            f.write(uploaded_zip.getbuffer())
-                       
-                        with zipfile.ZipFile(temp_zip_path, 'r') as z:
-                            z.extractall(temp_dir)
-                       
-                        extracted_pdfs = glob.glob(os.path.join(temp_dir, "**", "*.pdf"), recursive=True)
-                       
-                        if extracted_pdfs:
-                            new_retriever, new_files = create_retriever_from_paths(extracted_pdfs)
-                           
-                            if new_retriever:
-                                st.session_state.retriever = new_retriever
-                                st.session_state.loaded_files = new_files
-                                st.success(f"✅ {len(new_files)} PDFs cargados del ZIP.")
-                            else:
-                                st.error("No se pudieron procesar los PDFs dentro del ZIP.")
-                        else:
-                            st.warning("El ZIP no contenía archivos PDF.")
-                           
-                    except Exception as e:
-                        st.error(f"Error al descomprimir: {e}")
-   
-    st.markdown("---")
-   
-    # Archivos actuales
-    st.markdown("#### 📚 Archivos del Plenilunio")
-    if st.session_state.get("loaded_files"):
-        st.success(f"🟢 {len(st.session_state.loaded_files)} Archivos Activos")
-        with st.expander("Ver lista de archivos"):
-            for f in st.session_state.loaded_files:
-                st.write(f"📄 {f}")
-    else:
-        st.warning("🔴 Repositorio Vacío")
-   
-    st.markdown("---")
-   
-    # Créditos
-    st.markdown("""
-        <br>
-        <p style='text-align:center; font-size:0.8rem; color:#a29bfe; font-family: Inter, sans-serif;'>
-            Diseñado por @Cronicas del Plenilunio 2026<br>
-            </p>
-    """, unsafe_allow_html=True)
-
-# ═══════════════════════════════════════════════════════════════
-# LÓGICA DE PROCESAMIENTO
-# ═══════════════════════════════════════════════════════════════
-
-def process_user_input(user_input):
-    with st.chat_message("user", avatar="👤"):
-        st.markdown(user_input)
-    st.session_state.messages.append({"role": "user", "content": user_input})
-
-    context_text = ""
-    if st.session_state.get("retriever"):
-        docs = st.session_state.retriever.invoke(user_input)
-        if docs:
-            context_text = "\n\n---\n\n".join([f"Fragmento de '{d.metadata.get('source', 'desconocido')}':\n{d.page_content}" for d in docs])
-
-    full_prompt_content = SYSTEM_PROMPT + f"\n\n## REGISTROS ACCEDIDOS:\n{context_text}" if context_text else SYSTEM_PROMPT + "\n\n(No se hallaron registros específicos)."
-
-    with st.chat_message("assistant", avatar="☀️"):
-        try:
-            formatted_messages = [{"role": "system", "content": full_prompt_content}] + st.session_state.messages
-            
-            # PARÁMETROS PARA EVITAR REPETICIONES
-            stream = client.chat.completions.create(
-                model="llama-3.1-8b-instant", 
-                messages=formatted_messages, 
-                stream=True,
-                temperature=0.7,       
-                top_p=0.9,             
-                frequency_penalty=0.5, 
-                presence_penalty=0.5   
-            )
-            
-            response = st.write_stream(stream)
-            st.session_state.messages.append({"role": "assistant", "content": response})
-            if voice_enabled: speak_text(response)
-        except Exception as e:
-            st.error(f"⚠️ Dificultad técnica: {str(e)}")
-
-# ═══════════════════════════════════════════════════════════════
-# CHAT PRINCIPAL
-# ═══════════════════════════════════════════════════════════════
-
-# Procesamiento de Audio
-if audio_data:
-    audio_bytes = audio_data['bytes']
-    audio_format = audio_data['format']
-    with st.spinner("🔊 Procesando tu voz..."):
-        try:
-            audio_file = io.BytesIO(audio_bytes)
-            audio_file.name = f"audio.{audio_format}"
-            transcription = client.audio.transcriptions.create(
-                file=audio_file,
-                model="whisper-large-v3",
-                language="es"
-            )
-            transcribed_text = transcription.text
-            if transcribed_text:
-                st.toast(f"🎤 Escuché: {transcribed_text}", icon="✅")
-                process_user_input(transcribed_text)
-        except Exception as e:
-            st.error(f"⚠️ Error en audio: {str(e)}")
-
-# Historial de Chat
-for message in st.session_state.messages:
-    if message["role"] != "system":
-        avatar = "🦅" if message["role"] == "assistant" else "👤"
-        with st.chat_message(message["role"], avatar=avatar):
-            st.markdown(message["content"])
-
-# Input de Texto
-if prompt := st.chat_input("Reza ante los dioses..."):
-    process_user_input(prompt)
+    ::-webkit
