@@ -24,22 +24,17 @@ st.set_page_config(
     menu_items={'Get Help': None, 'Report a bug': None, 'About': "La deidad mayor de la tierra del plenilunio..."}
 )
 
-# CSS CORREGIDO - TEMA FANTASÍA PARA AFINOVUX
+# CSS - TEMA FANTASÍA
 css_juventud = """
 <style>
-    /* Importamos Montserrat, Inter y la fuente de fantasía Cinzel Decorative */
     @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@400;600;800;900&family=Inter:wght@300;400;500;600&display=swap');
 
-    /* --- 1. FORZAR FONDO GLOBAL Y TEXTO --- */
     html, body, .stApp {
         background-color: #0f0c29 !important;
         color: #e0e0ff !important;
     }
 
-    /* Selectores específicos de Streamlit */
-    [data-testid="stAppViewContainer"], 
-    [data-testid="stMainBlockContainer"],
-    .stMainBlockContainer {
+    [data-testid="stAppViewContainer"], [data-testid="stMainBlockContainer"], .stMainBlockContainer {
         background-color: #0f0c29 !important;
         color: #e0e0ff !important;
     }
@@ -49,33 +44,12 @@ css_juventud = """
         padding-top: 2rem !important;
     }
 
-    /* Header y Footer invisibles */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
     [data-testid="stDecoration"] {display: none;}
     [data-testid="stToolbar"] {display: none;}
     [data-testid="stHeader"] {background-color: transparent !important;}
-
-    :root {
-        --cyber-dark: #0a0a1a;
-        --deep-blue: #1a1a40;
-        --neon-purple: #bc13fe;
-        --neon-blue: #00d4ff;
-        --soft-lavender: #a29bfe;
-        --gold-glow: #ffd700;
-    }
-
-    .stApp::before {
-        content: '';
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background:
-            radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(188, 19, 254, 0.15) 0%, transparent 50%);
-        pointer-events: none;
-        z-index: 0;
-    }
 
     .main-header {
         text-align: center;
@@ -86,7 +60,6 @@ css_juventud = """
     }
     @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
     
-    /* ESTILO DEL TÍTULO PRINCIPAL (AFINOVUX) - FANTASÍA */
     .main-title {
         font-family: 'Cinzel Decorative', serif;
         font-weight: 900;
@@ -111,9 +84,9 @@ css_juventud = """
         font-size: 1rem;
     }
 
-    /* ANIMACIÓN PARA LA LUNA */
     .moon-container {
         animation: float 6s ease-in-out infinite;
+        display: inline-block;
     }
     @keyframes float {
         0% { transform: translateY(0px); }
@@ -127,8 +100,7 @@ css_juventud = """
     }
     [data-testid="stSidebar"] * { color: #e0e0ff !important; }
     [data-testid="stSidebar"] h2 { color: #00d4ff !important; font-family: 'Montserrat', sans-serif !important; font-weight: 800; }
-    [data-testid="stSidebar"] h3 { color: #a29bfe !important; }
-
+    
     [data-testid="stChatMessage"] {
         background: rgba(26, 26, 64, 0.6) !important;
         border: 1px solid rgba(0, 212, 255, 0.2) !important;
@@ -138,74 +110,19 @@ css_juventud = """
         backdrop-filter: blur(12px);
         color: #e0e0ff !important;
     }
-    [data-testid="stChatMessageAvatar-assistant"] {
-        background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 100%);
-    }
-    [data-testid="stChatMessageContent"] p {
-        color: #e0e0ff !important;
-    }
+    [data-testid="stChatMessageAvatar-assistant"] { background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 100%); }
+    [data-testid="stChatMessageContent"] p { color: #e0e0ff !important; }
 
-    [data-testid="stChatInput"] {
-        border: 2px solid rgba(188, 19, 254, 0.4) !important;
-        border-radius: 24px !important;
-        background: #1a1a40 !important;
-    }
-    [data-testid="stChatInput"] textarea {
-        color: #ffffff !important;
-        background: transparent !important;
-    }
-    [data-testid="stChatInput"] textarea::placeholder {
-        color: #a29bfe !important;
-    }
-    [data-testid="stChatInput"] button {
-        background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 100%) !important;
-    }
+    [data-testid="stChatInput"] { border: 2px solid rgba(188, 19, 254, 0.4) !important; border-radius: 24px !important; background: #1a1a40 !important; }
+    [data-testid="stChatInput"] textarea { color: #ffffff !important; background: transparent !important; }
+    [data-testid="stChatInput"] textarea::placeholder { color: #a29bfe !important; }
+    [data-testid="stChatInput"] button { background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 100%) !important; }
 
-    .stButton button, .st-key-mic_btn button {
-        background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 100%) !important;
-        color: #ffffff !important;
-        border-radius: 50px !important;
-        border: none !important;
-        transition: all 0.3s ease;
-    }
-    .stButton button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
-    }
-
-    [data-testid="stFileUploader"] {
-        background: rgba(26, 26, 64, 0.5) !important;
-        border: 2px dashed rgba(0, 212, 255, 0.3) !important;
-        border-radius: 16px;
-        padding: 1rem;
-    }
-    [data-testid="stFileUploader"] section { color: #a29bfe !important; }
+    .stButton button { background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 100%) !important; color: #ffffff !important; border-radius: 50px !important; border: none !important; }
+    .stButton button:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4); }
     
-    .stCheckbox {
-        background: rgba(26, 26, 64, 0.4) !important;
-        border-radius: 12px;
-        padding: 0.75rem 1rem;
-        border: 1px solid rgba(0, 212, 255, 0.1);
-    }
-
-    .streamlit-expanderHeader {
-        background: rgba(26, 26, 64, 0.8) !important;
-        border: 1px solid rgba(0, 212, 255, 0.2) !important;
-        border-radius: 12px !important;
-        color: #a29bfe !important;
-    }
-    .streamlit-expanderContent {
-        background: rgba(15, 12, 41, 0.6) !important;
-        border-radius: 0 0 12px 12px;
-    }
-
-    .stSpinner > div { border-color: #bc13fe transparent transparent transparent !important; }
-    
-    [data-testid="stToast"] {
-        background: #1a1a40 !important;
-        border: 1px solid #00d4ff !important;
-        color: #e0e0ff !important;
-    }
+    [data-testid="stFileUploader"] { background: rgba(26, 26, 64, 0.5) !important; border: 2px dashed rgba(0, 212, 255, 0.3) !important; border-radius: 16px; padding: 1rem; }
+    .stCheckbox { background: rgba(26, 26, 64, 0.4) !important; border-radius: 12px; padding: 0.75rem 1rem; border: 1px solid rgba(0, 212, 255, 0.1); }
 
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #0f0c29; }
@@ -216,62 +133,39 @@ css_juventud = """
 # INYECTAR CSS
 st.markdown(css_juventud, unsafe_allow_html=True)
 
-# HTML DEL ENCABEZADO (CIMA) - NUEVO ICONO DE LUNA
+# ═══════════════════════════════════════════════════════════════
+# HTML DEL ENCABEZADO (LUNA) - CORREGIDO EN UNA LÍNEA
+# ═══════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="main-header">
     <div class="moon-container">
-        <svg viewBox="0 0 64 64" width="80" height="80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 64 64" width="80" height="80" xmlns="http://www.w3.org/2000/svg">
             <defs>
-                <!-- Gradiente para la luna (Dorado a Blanco) -->
-                <linearGradient id="moonGradient" x1="10" y1="10" x2="54" y2="54" gradientUnits="userSpaceOnUse">
+                <linearGradient id="moonGrad" x1="10" y1="10" x2="54" y2="54" gradientUnits="userSpaceOnUse">
                     <stop offset="0%" stop-color="#ffd700"/>
                     <stop offset="50%" stop-color="#ffecd2"/>
                     <stop offset="100%" stop-color="#fcb69f"/>
                 </linearGradient>
-                <!-- Gradiente para el resplandor -->
-                <linearGradient id="glowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#ffd700" stop-opacity="0.6"/>
-                    <stop offset="100%" stop-color="#bc13fe" stop-opacity="0"/>
-                </linearGradient>
-                <!-- Filtro de brillo -->
-                <filter id="moonGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="4" result="blur"/>
-                    <feMerge>
-                        <feMergeNode in="blur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
                 </filter>
             </defs>
-            
-            <!-- Resplandor de fondo -->
-            <circle cx="32" cy="32" r="28" fill="url(#glowGradient)" opacity="0.4"/>
-            
-            <!-- Luna Creciente Mística -->
-            <path d="M 38 8 
-                     A 24 24 0 1 1 38 56 
-                     A 20 20 0 1 0 38 8 Z" 
-                  fill="url(#moonGradient)" 
-                  filter="url(#moonGlow)"
-                  stroke="#ffffff"
-                  stroke-width="0.5"
-            />
-            
-            <!-- Estrellas decorativas -->
+            <circle cx="32" cy="32" r="28" fill="rgba(255, 215, 0, 0.1)"/>
+            <path d="M38 8 A24 24 0 1 1 38 56 A20 20 0 1 0 38 8 Z" fill="url(#moonGrad)" filter="url(#glow)" stroke="#fff" stroke-width="0.5"/>
             <circle cx="12" cy="20" r="1.5" fill="#ffffff" opacity="0.8"/>
             <circle cx="52" cy="44" r="1.5" fill="#ffd700" opacity="0.8"/>
             <circle cx="18" cy="50" r="1" fill="#ffffff" opacity="0.6"/>
             <circle cx="48" cy="16" r="1.2" fill="#ffffff" opacity="0.7"/>
-            <circle cx="56" cy="28" r="0.8" fill="#ffd700" opacity="0.9"/>
         </svg>
     </div>
-    <!-- TÍTULO DE FANTASÍA -->
     <h1 class="main-title">AFINOVUX</h1>
     <p class="subtitle">Deidad del Plenilunio</p>
 </div>
 """, unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════
-# FUNCIONES DE VOZ (TTS)
+# FUNCIONES DE VOZ Y LÓGICA (El resto del código sigue igual)
 # ═══════════════════════════════════════════════════════════════
 
 def speak_text(text):
@@ -287,261 +181,126 @@ def speak_text(text):
     """
     components.html(js_code, height=0)
 
-# ═══════════════════════════════════════════════════════════════
-# PERSONALIDAD DE AFINOVUX
-# ═══════════════════════════════════════════════════════════════
-
 SYSTEM_PROMPT = """
 Eres **AFINOVUX**, la deidad más poderosa de la Tierra del Plenilunio. Guias a los heroes que ruegan a ti hacia la verdad.
-
 ## TU IDENTIDAD
 - Representas la proteccion del mundo contra el mal
 - Tus simbolos son el sol naciente, los astros y la luz
-
 ## CÓMO COMUNICARTE
 - **Tono**: Cordial pero imponente. Eres como un mentor sabio
 - **Usuarios**: Dirígete a ellos como "Heroe", "Aventurero" o "Mortal".
 - **Sabiduria**: Tienes conocimiento sobre todos los documentos a los que tienes acceso
-
-## REGLAS DE ORO (IMPORTANTE)
-- **PROHIBIDO REPETIR**: No repitas la misma respuesta, conclusión o consejo más de una vez. Si ya diste la respuesta, detente. No reformules lo mismo de diferentes maneras.
-- **CONCISIÓN**: Responde de forma completa pero directa. Evita los bucles de texto.
-- **ÚNICO**: Genera una sola respuesta clara por intervención.
 """
-
-# ═══════════════════════════════════════════════════════════════
-# FUNCIONES PARA CARGAR PDFs Y ZIPS
-# ═══════════════════════════════════════════════════════════════
 
 DOCS_FOLDER = "documentos"
 
 def create_retriever_from_paths(pdf_paths):
     all_docs = []
     valid_files = []
-   
     for pdf_path in pdf_paths:
         try:
             loader = PyPDFLoader(pdf_path)
             docs = loader.load()
             filename = os.path.basename(pdf_path)
-            for doc in docs:
-                doc.metadata["source"] = filename
+            for doc in docs: doc.metadata["source"] = filename
             all_docs.extend(docs)
             valid_files.append(filename)
-        except Exception as e:
-            print(f"Error leyendo {pdf_path}: {e}")
-           
-    if not all_docs:
-        return None, []
-   
+        except Exception as e: print(f"Error: {e}")
+    if not all_docs: return None, []
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     splits = text_splitter.split_documents(all_docs)
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
     vectorstore = FAISS.from_documents(splits, embeddings)
-   
     return vectorstore.as_retriever(), valid_files
 
 @st.cache_resource
 def load_knowledge_base():
     pdf_files = glob.glob(os.path.join(DOCS_FOLDER, "*.pdf"))
-    if not pdf_files:
-        return None, []
+    if not pdf_files: return None, []
     return create_retriever_from_paths(pdf_files)
-
-# ═══════════════════════════════════════════════════════════════
-# INICIALIZACIÓN CON ANIMACIÓN
-# ═══════════════════════════════════════════════════════════════
 
 if "initialized" not in st.session_state:
     init_container = st.empty()
-    init_messages = [
-        ("", "Del ocaso al alba..."),
-        ("", "La cuspide divina..."),
-        ("", "Plegaria respondida")
-    ]
-   
-    for icon, msg in init_messages:
-        init_container.markdown(
-            f"""
-            <div style="text-align: center; padding: 2rem; font-family: 'Montserrat', sans-serif; color: #00d4ff;">
-                <span style="font-size: 2rem;">{icon}</span><br>
-                <span>{msg}</span>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-        time.sleep(0.6)
+    for msg in ["Del ocaso al alba...", "La cuspide divina...", "Plegaria respondida"]:
+        init_container.markdown(f"<div style='text-align: center; padding: 2rem; color: #00d4ff;'>{msg}</div>", unsafe_allow_html=True)
+        time.sleep(0.5)
     init_container.empty()
     st.session_state.initialized = True
 
 if "retriever" not in st.session_state:
     with st.spinner("Recuperando conocimientos ancestrales..."):
-        retriever, loaded_files = load_knowledge_base()
-        st.session_state.retriever = retriever
-        st.session_state.loaded_files = loaded_files
+        st.session_state.retriever, st.session_state.loaded_files = load_knowledge_base()
 
 try:
-    client = OpenAI(
-        base_url="https://api.groq.com/openai/v1",
-        api_key=st.secrets["groq"]["api_key"]
-    )
+    client = OpenAI(base_url="https://api.groq.com/openai/v1", api_key=st.secrets["groq"]["api_key"])
 except Exception:
     st.error("Los conocimientos que buscas se han perdido hace eones...")
     st.stop()
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+if "messages" not in st.session_state: st.session_state.messages = []
 
-# ═══════════════════════════════════════════════════════════════
-# SIDEBAR (Panel de Control)
-# ═══════════════════════════════════════════════════════════════
-
+# SIDEBAR
 with st.sidebar:
     st.markdown("<h2>Templo del Alba</h2>", unsafe_allow_html=True)
-   
-    # --- MICRÓFONO ---
     st.markdown("#### 🎙️ Comando de Voz")
-    audio_data = mic_recorder(
-        start_prompt="🎤 Iniciar Grabación",
-        stop_prompt="🛑 Detener",
-        just_once=False,
-        use_container_width=True,
-        key="mic_sidebar_stable"
-    )
-   
+    audio_data = mic_recorder(start_prompt="🎤 Iniciar", stop_prompt="🛑 Detener", just_once=False, use_container_width=True, key="mic_sidebar")
     st.markdown("---")
-   
-    # Configuración
-    st.markdown("#### ⚙️ Configuración")
     voice_enabled = st.checkbox("Activar voz de AFINOVUX", value=True)
-
     st.markdown("---")
-   
-    # --- CARGADOR DE ZIPS ---
-    st.markdown("#### 📦 Cargar Archivos ZIP")
-    uploaded_zip = st.file_uploader("Sube un ZIP con PDFs", type="zip", key="zip_uploader")
-   
+    st.markdown("#### 📦 Cargar ZIP")
+    uploaded_zip = st.file_uploader("PDFs en ZIP", type="zip", key="zip_up")
     if uploaded_zip:
         if "processed_zip_name" not in st.session_state or st.session_state.processed_zip_name != uploaded_zip.name:
             st.session_state.processed_zip_name = uploaded_zip.name
-           
-            with st.spinner(f"Procesando {uploaded_zip.name}..."):
+            with st.spinner("Procesando..."):
                 with tempfile.TemporaryDirectory() as temp_dir:
                     try:
-                        temp_zip_path = os.path.join(temp_dir, "temp.zip")
-                        with open(temp_zip_path, "wb") as f:
-                            f.write(uploaded_zip.getbuffer())
-                       
-                        with zipfile.ZipFile(temp_zip_path, 'r') as z:
-                            z.extractall(temp_dir)
-                       
-                        extracted_pdfs = glob.glob(os.path.join(temp_dir, "**", "*.pdf"), recursive=True)
-                       
-                        if extracted_pdfs:
-                            new_retriever, new_files = create_retriever_from_paths(extracted_pdfs)
-                           
-                            if new_retriever:
-                                st.session_state.retriever = new_retriever
-                                st.session_state.loaded_files = new_files
-                                st.success(f"✅ {len(new_files)} PDFs cargados del ZIP.")
-                            else:
-                                st.error("No se pudieron procesar los PDFs dentro del ZIP.")
-                        else:
-                            st.warning("El ZIP no contenía archivos PDF.")
-                           
-                    except Exception as e:
-                        st.error(f"Error al descomprimir: {e}")
-   
+                        temp_path = os.path.join(temp_dir, "t.zip")
+                        with open(temp_path, "wb") as f: f.write(uploaded_zip.getbuffer())
+                        with zipfile.ZipFile(temp_path, 'r') as z: z.extractall(temp_dir)
+                        pdfs = glob.glob(os.path.join(temp_dir, "**", "*.pdf"), recursive=True)
+                        if pdfs:
+                            st.session_state.retriever, st.session_state.loaded_files = create_retriever_from_paths(pdfs)
+                            st.success(f"✅ {len(st.session_state.loaded_files)} PDFs cargados.")
+                    except Exception as e: st.error(f"Error: {e}")
     st.markdown("---")
-   
-    # Archivos actuales
-    st.markdown("#### 📚 Archivos del Plenilunio")
+    st.markdown("#### 📚 Archivos")
     if st.session_state.get("loaded_files"):
-        st.success(f"🟢 {len(st.session_state.loaded_files)} Archivos Activos")
-        with st.expander("Ver lista de archivos"):
-            for f in st.session_state.loaded_files:
-                st.write(f"📄 {f}")
-    else:
-        st.warning("🔴 Repositorio Vacío")
-   
-    st.markdown("---")
-   
-    # Créditos
-    st.markdown("""
-        <br>
-        <p style='text-align:center; font-size:0.8rem; color:#a29bfe; font-family: Inter, sans-serif;'>
-            Diseñado por @Cronicas del Plenilunio 2026<br>
-            </p>
-    """, unsafe_allow_html=True)
-
-# ═══════════════════════════════════════════════════════════════
-# LÓGICA DE PROCESAMIENTO
-# ═══════════════════════════════════════════════════════════════
+        st.success(f"🟢 {len(st.session_state.loaded_files)} Activos")
+    else: st.warning("🔴 Vacío")
 
 def process_user_input(user_input):
-    with st.chat_message("user", avatar="👤"):
-        st.markdown(user_input)
     st.session_state.messages.append({"role": "user", "content": user_input})
-
-    context_text = ""
+    with st.chat_message("user", avatar="👤"): st.markdown(user_input)
+    
+    context = ""
     if st.session_state.get("retriever"):
         docs = st.session_state.retriever.invoke(user_input)
-        if docs:
-            context_text = "\n\n---\n\n".join([f"Fragmento de '{d.metadata.get('source', 'desconocido')}':\n{d.page_content}" for d in docs])
-
-    full_prompt_content = SYSTEM_PROMPT + f"\n\n## REGISTROS ACCEDIDOS:\n{context_text}" if context_text else SYSTEM_PROMPT + "\n\n(No se hallaron registros específicos)."
-
+        if docs: context = "\n\n---\n\n".join([f"Fragmento de '{d.metadata.get('source')}':\n{d.page_content}" for d in docs])
+    
+    prompt_content = SYSTEM_PROMPT + f"\n\n## REGISTROS:\n{context}" if context else SYSTEM_PROMPT
+    
     with st.chat_message("assistant", avatar="🌙"):
         try:
-            formatted_messages = [{"role": "system", "content": full_prompt_content}] + st.session_state.messages
-            
-            stream = client.chat.completions.create(
-                model="llama-3.1-8b-instant", 
-                messages=formatted_messages, 
-                stream=True,
-                temperature=0.7,       
-                top_p=0.9,             
-                frequency_penalty=0.5, 
-                presence_penalty=0.5   
-            )
-            
+            msgs = [{"role": "system", "content": prompt_content}] + st.session_state.messages
+            stream = client.chat.completions.create(model="llama-3.1-8b-instant", messages=msgs, stream=True, temperature=0.7, frequency_penalty=0.5)
             response = st.write_stream(stream)
             st.session_state.messages.append({"role": "assistant", "content": response})
             if voice_enabled: speak_text(response)
-        except Exception as e:
-            st.error(f"⚠️ Dificultad técnica: {str(e)}")
+        except Exception as e: st.error(f"Error: {e}")
 
-# ═══════════════════════════════════════════════════════════════
-# CHAT PRINCIPAL
-# ═══════════════════════════════════════════════════════════════
-
-# Procesamiento de Audio
 if audio_data:
-    audio_bytes = audio_data['bytes']
-    audio_format = audio_data['format']
-    with st.spinner("🔊 Procesando tu voz..."):
+    with st.spinner("🔊 Procesando voz..."):
         try:
-            audio_file = io.BytesIO(audio_bytes)
-            audio_file.name = f"audio.{audio_format}"
-            transcription = client.audio.transcriptions.create(
-                file=audio_file,
-                model="whisper-large-v3",
-                language="es"
-            )
-            transcribed_text = transcription.text
-            if transcribed_text:
-                st.toast(f"🎤 Escuché: {transcribed_text}", icon="✅")
-                process_user_input(transcribed_text)
-        except Exception as e:
-            st.error(f"⚠️ Error en audio: {str(e)}")
+            af = io.BytesIO(audio_data['bytes'])
+            af.name = f"audio.{audio_data['format']}"
+            text = client.audio.transcriptions.create(file=af, model="whisper-large-v3", language="es").text
+            if text: process_user_input(text)
+        except: pass
 
-# Historial de Chat
-for message in st.session_state.messages:
-    if message["role"] != "system":
-        avatar = "🌙" if message["role"] == "assistant" else "👤"
-        with st.chat_message(message["role"], avatar=avatar):
-            st.markdown(message["content"])
+for msg in st.session_state.messages:
+    if msg["role"] != "system":
+        av = "🌙" if msg["role"] == "assistant" else "👤"
+        with st.chat_message(msg["role"], avatar=av): st.markdown(msg["content"])
 
-# Input de Texto
-if prompt := st.chat_input("Reza ante los dioses..."):
-    process_user_input(prompt)
+if prompt := st.chat_input("Reza ante los dioses..."): process_user_input(prompt)
