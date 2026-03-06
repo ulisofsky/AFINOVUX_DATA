@@ -18,16 +18,17 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 # CONFIGURACIÓN DE PÁGINA
 st.set_page_config(
     page_title="AFINOVUX",
-    page_icon="",
+    page_icon="☀️",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={'Get Help': None, 'Report a bug': None, 'About': "La deidad mayor de la tierra del plenilunio..."}
 )
 
-# CSS CORREGIDO - TEMA AZUL Y MORADO (SIN PANTALLA BLANCA)
+# CSS CORREGIDO - TEMA FANTASÍA PARA AFINOVUX
 css_juventud = """
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Inter:wght@300;400;500;600&display=swap');
+    /* Importamos Montserrat, Inter y la fuente de fantasía Cinzel Decorative */
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@400;600;800;900&family=Inter:wght@300;400;500;600&display=swap');
 
     /* --- 1. FORZAR FONDO GLOBAL Y TEXTO --- */
     html, body, .stApp {
@@ -62,6 +63,7 @@ css_juventud = """
         --neon-purple: #bc13fe;
         --neon-blue: #00d4ff;
         --soft-lavender: #a29bfe;
+        --gold-glow: #ffd700;
     }
 
     .stApp::before {
@@ -84,24 +86,29 @@ css_juventud = """
     }
     @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
     
+    /* ESTILO DEL TÍTULO PRINCIPAL (AFINOVUX) - FANTASÍA */
     .main-title {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Cinzel Decorative', serif; /* FUENTE DE FANTASÍA */
         font-weight: 900;
-        font-size: clamp(2.5rem, 8vw, 4rem);
-        background: linear-gradient(135deg, #00d4ff 0%, #bc13fe 50%, #00d4ff 100%);
+        font-size: clamp(3.5rem, 10vw, 6rem); /* TAMAÑO GRANDE */
+        background: linear-gradient(135deg, #ffd700 0%, #ffeedd 25%, #ffffff 50%, #ffd700 75%, #bc13fe 100%);
         background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         animation: shimmer 4s linear infinite;
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        margin-bottom: 0.5rem;
+        letter-spacing: 4px;
     }
     @keyframes shimmer { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
     
     .subtitle {
         font-family: 'Inter', sans-serif;
         color: #a29bfe;
-        letter-spacing: 4px;
+        letter-spacing: 6px;
         text-transform: uppercase;
         margin-top: 0.5rem;
+        font-size: 1rem;
     }
 
     [data-testid="stSidebar"] {
@@ -192,12 +199,22 @@ css_juventud = """
 
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #0f0c29; }
-    ::-webkit-scrollbar-thumb { backg<div class="main-header">
+    ::-webkit-scrollbar-thumb { background: #bc13fe; border-radius: 4px; }
+</style>
+"""
+
+# INYECTAR CSS
+st.markdown(css_juventud, unsafe_allow_html=True)
+
+# HTML DEL ENCABEZADO (CIMA)
+st.markdown("""
+<div class="main-header">
     <div class="eagle-container">
         <svg viewBox="0 0 64 64" width="72" height="72" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <linearGradient id="eagleGradient" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#00d4ff"/>
+                    <stop offset="0%" stop-color="#ffd700"/>
+                    <stop offset="50%" stop-color="#ffffff"/>
                     <stop offset="100%" stop-color="#bc13fe"/>
                 </linearGradient>
                 <filter id="glow">
@@ -210,7 +227,7 @@ css_juventud = """
             </defs>
             <path d="M32 8L8 24L16 28L8 40L20 36L16 52L32 40L48 52L44 36L56 40L48 28L56 24L32 8Z"
                   fill="url(#eagleGradient)"
-                  stroke="#00d4ff"
+                  stroke="#ffd700"
                   stroke-width="1.5"
                   filter="url(#glow)"/>
             <circle cx="26" cy="24" r="3" fill="#0f0c29"/>
@@ -218,10 +235,11 @@ css_juventud = """
             <path d="M28 32L32 36L36 32" stroke="#0f0c29" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </div>
-    <h1 class="main-title">JUVENTUD 2.0</h1>
-    <p class="subtitle">Tu Guía Josefina</p>
+    <!-- TÍTULO DE FANTASÍA CAMBIADO A AFINOVUX -->
+    <h1 class="main-title">AFINOVUX</h1>
+    <p class="subtitle">Deidad del Plenilunio</p>
 </div>
-"""
+""", unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════
 # FUNCIONES DE VOZ (TTS)
@@ -241,7 +259,7 @@ def speak_text(text):
     components.html(js_code, height=0)
 
 # ═══════════════════════════════════════════════════════════════
-# PERSONALIDAD DE JUVENTUD 2.0
+# PERSONALIDAD DE AFINOVUX
 # ═══════════════════════════════════════════════════════════════
 
 SYSTEM_PROMPT = """
@@ -260,7 +278,6 @@ Eres **AFINOVUX**, la deidad más poderosa de la Tierra del Plenilunio. Guias a 
 - **PROHIBIDO REPETIR**: No repitas la misma respuesta, conclusión o consejo más de una vez. Si ya diste la respuesta, detente. No reformules lo mismo de diferentes maneras.
 - **CONCISIÓN**: Responde de forma completa pero directa. Evita los bucles de texto.
 - **ÚNICO**: Genera una sola respuesta clara por intervención.
-
 """
 
 # ═══════════════════════════════════════════════════════════════
