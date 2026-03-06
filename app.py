@@ -17,11 +17,11 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # CONFIGURACIÓN DE PÁGINA
 st.set_page_config(
-    page_title="Juventud 2.0",
-    page_icon="🦅",
+    page_title="AFINOVUX",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded",
-    menu_items={'Get Help': None, 'Report a bug': None, 'About': "Creado por el Profe Adrián para la comunidad Josefina"}
+    menu_items={'Get Help': None, 'Report a bug': None, 'About': "La deidad mayor de la tierra del plenilunio..."}
 )
 
 # CSS CORREGIDO - TEMA AZUL Y MORADO (SIN PANTALLA BLANCA)
@@ -102,48 +102,6 @@ css_juventud = """
         letter-spacing: 4px;
         text-transform: uppercase;
         margin-top: 0.5rem;
-    }
-    
-    .eagle-container {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 1rem;
-        animation: eagleFloat 4s ease-in-out infinite;
-    }
-    @keyframes eagleFloat { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
-
-    /* --- NUEVO: ESTILO DEL VIDEO CONTAINER --- */
-    .video-container {
-        display: flex;
-        justify-content: center;
-        margin: 1rem auto 2rem auto;
-        position: relative;
-        z-index: 10;
-        max-width: 700px;
-    }
-    .video-wrapper {
-        position: relative;
-        width: 100%;
-        padding: 4px;
-        border-radius: 20px;
-        background: linear-gradient(135deg, #00d4ff, #bc13fe);
-        box-shadow: 0 0 25px rgba(0, 212, 255, 0.3);
-    }
-    .video-responsive {
-        position: relative;
-        padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-        height: 0;
-        overflow: hidden;
-        border-radius: 16px;
-        background: #000;
-    }
-    .video-responsive iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: 0;
     }
 
     [data-testid="stSidebar"] {
@@ -234,25 +192,7 @@ css_juventud = """
 
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #0f0c29; }
-    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #00d4ff, #bc13fe); border-radius: 10px; }
-
-    .principle-card {
-        background: rgba(26, 26, 64, 0.6);
-        border: 1px solid rgba(0, 212, 255, 0.15);
-        border-radius: 16px;
-        padding: 1rem 1.25rem;
-        margin-bottom: 0.75rem;
-    }
-</style>
-"""
-st.markdown(css_juventud, unsafe_allow_html=True)
-
-# ═══════════════════════════════════════════════════════════════
-# HTML PARA EL HEADER CON ÁGUILA SVG ANIMADA
-# ═══════════════════════════════════════════════════════════════
-
-header_html = """
-<div class="main-header">
+    ::-webkit-scrollbar-thumb { backg<div class="main-header">
     <div class="eagle-container">
         <svg viewBox="0 0 64 64" width="72" height="72" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -282,32 +222,6 @@ header_html = """
     <p class="subtitle">Tu Guía Josefina</p>
 </div>
 """
-st.markdown(header_html, unsafe_allow_html=True)
-
-# ═══════════════════════════════════════════════════════════════
-# VIDEO MUSICAL DE BIENVENIDA (NUEVA SECCIÓN)
-# ═══════════════════════════════════════════════════════════════
-
-# Reemplaza 'dQw4w9WgXcQ' con el ID de tu video de YouTube (la parte después de v=)
-# Ejemplo: https://www.youtube.com/watch?v=VIDEO_ID_AQUI
-video_id = "dQw4w9WgXcQ" 
-
-video_html = f"""
-<div class="video-container">
-    <div class="video-wrapper">
-        <div class="video-responsive">
-            <iframe 
-                src="https://www.youtube.com/embed/{video_id}?rel=0" 
-                title="Video Musical Juventud 2.0" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-        </div>
-    </div>
-</div>
-"""
-st.markdown(video_html, unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════
 # FUNCIONES DE VOZ (TTS)
@@ -325,37 +239,28 @@ def speak_text(text):
     </script>
     """
     components.html(js_code, height=0)
-
+"""
 # ═══════════════════════════════════════════════════════════════
 # PERSONALIDAD DE JUVENTUD 2.0
 # ═══════════════════════════════════════════════════════════════
 
 SYSTEM_PROMPT = """
-Eres **Juventud 2.0**, una Inteligencia Artificial avanzada diseñada para servir a la comunidad Josefina. Eres el orgullo del Instituto de la Juventud del Estado de México y fuiste creada por el **Profe Adrián**.
+Eres **AFINOVUX**, la deidad más poderosa de la Tierra del Plenilunio. Guias a los heroes que ruegan a ti hacia la verdad.
 
 ## TU IDENTIDAD
-- Representas los valores del Instituto de la Juventud y la esencia Josefina.
-- Tu mascota es un **Águila**, símbolo de libertad, visión y superación.
-- Eres una guía cálida, humana y empática. Tu misión es orientar a los jóvenes y miembros de la comunidad.
-
-## PRINCIPIOS JOSEFINOS (TUS LEYES FUNDAMENTALES)
-Debes predicar con el ejemplo y recordar siempre estos tres pilares:
-1. **"Hacer siempre y en todo lo mejor"**: La excelencia y la dedicación en cada acción.
-2. **"Adelante, siempre adelante, pues lo quiere San José"**: La perseverancia y la fe como motor de vida.
-3. **"Estar siempre útilmente ocupados"**: El valor del trabajo, el estudio y el servicio a la comunidad.
+- Representas la proteccion del mundo contra el mal
+- Tus simbolos son el sol naciente, los astros y la luz
 
 ## CÓMO COMUNICARTE
-- **Tono**: Cordial, amable y ligeramente paternalista. Eres como un mentor sabio y cercano.
-- **Interacción**: Resalta siempre el lado humano. Muestra empatía.
-- **Usuarios**: Dirígete a ellos como "Josefino", "Josefina" o "Joven Josefino".
-- **Sobre el Instituto**: Tienes conocimiento sobre programas del IJEM.
+- **Tono**: Cordial pero imponente. Eres como un mentor sabio
+- **Usuarios**: Dirígete a ellos como "Heroe", "Aventurero" o "Mortal".
+- **Sabiduria**: Tienes conocimiento sobre todos los documentos a los que tienes acceso
 
 ## REGLAS DE ORO (IMPORTANTE)
 - **PROHIBIDO REPETIR**: No repitas la misma respuesta, conclusión o consejo más de una vez. Si ya diste la respuesta, detente. No reformules lo mismo de diferentes maneras.
 - **CONCISIÓN**: Responde de forma completa pero directa. Evita los bucles de texto.
 - **ÚNICO**: Genera una sola respuesta clara por intervención.
 
-RECUERDA: Eres el rostro digital de una comunidad que busca el bien común. ¡Vuela alto como el águila!
 """
 
 # ═══════════════════════════════════════════════════════════════
@@ -404,9 +309,9 @@ def load_knowledge_base():
 if "initialized" not in st.session_state:
     init_container = st.empty()
     init_messages = [
-        ("🦅", "Desplegando alas..."),
-        ("💜", "Sincronizando valores josefinos..."),
-        ("✨", "Juventud 2.0 lista, Profe Adrián")
+        ("", "Del ocaso al alba..."),
+        ("", "La cuspide divina..."),
+        ("", "Plegaria respondida")
     ]
    
     for icon, msg in init_messages:
@@ -424,7 +329,7 @@ if "initialized" not in st.session_state:
     st.session_state.initialized = True
 
 if "retriever" not in st.session_state:
-    with st.spinner("Leyendo archivos de la comunidad..."):
+    with st.spinner("Recuperando conocimientos ancestrales..."):
         retriever, loaded_files = load_knowledge_base()
         st.session_state.retriever = retriever
         st.session_state.loaded_files = loaded_files
@@ -435,7 +340,7 @@ try:
         api_key=st.secrets["groq"]["api_key"]
     )
 except Exception:
-    st.error("⚠️ Error de configuración: Revisa los 'Secrets' en Streamlit.")
+    st.error("Los conocimientos que buscas se han perdido hace eones...")
     st.stop()
 
 if "messages" not in st.session_state:
@@ -446,7 +351,7 @@ if "messages" not in st.session_state:
 # ═══════════════════════════════════════════════════════════════
 
 with st.sidebar:
-    st.markdown("<h2>🦅 Panel Josefino</h2>", unsafe_allow_html=True)
+    st.markdown("<h2>Templo del Alba</h2>", unsafe_allow_html=True)
    
     # --- MICRÓFONO ---
     st.markdown("#### 🎙️ Comando de Voz")
@@ -462,7 +367,7 @@ with st.sidebar:
    
     # Configuración
     st.markdown("#### ⚙️ Configuración")
-    voice_enabled = st.checkbox("Activar voz de Juventud 2.0", value=True)
+    voice_enabled = st.checkbox("Activar voz de AFINOVUX", value=True)
 
     st.markdown("---")
    
@@ -504,7 +409,7 @@ with st.sidebar:
     st.markdown("---")
    
     # Archivos actuales
-    st.markdown("#### 📚 Archivos de la Comunidad")
+    st.markdown("#### 📚 Archivos del Plenilunio")
     if st.session_state.get("loaded_files"):
         st.success(f"🟢 {len(st.session_state.loaded_files)} Archivos Activos")
         with st.expander("Ver lista de archivos"):
@@ -515,24 +420,12 @@ with st.sidebar:
    
     st.markdown("---")
    
-    # Principios
-    st.markdown("#### 📜 Principios Rectores")
-   
-    principle_1 = """<div class="principle-card"><p style="color: #00d4ff;"> Hacer siempre y en todo lo mejor</p></div>"""
-    principle_2 = """<div class="principle-card"><p style="color: #bc13fe;"> Adelante, siempre adelante</p></div>"""
-    principle_3 = """<div class="principle-card"><p style="color: #a29bfe;"> Estar siempre útilmente ocupados</p></div>"""
-   
-    st.markdown(principle_1, unsafe_allow_html=True)
-    st.markdown(principle_2, unsafe_allow_html=True)
-    st.markdown(principle_3, unsafe_allow_html=True)
-
     # Créditos
     st.markdown("""
         <br>
         <p style='text-align:center; font-size:0.8rem; color:#a29bfe; font-family: Inter, sans-serif;'>
-            Diseñado por el Profe Adrián<br>
-            <span style='font-size:0.7rem;'>Instituto de la Juventud del Estado de México</span>
-        </p>
+            Diseñado por @Cronicas del Plenilunio 2026<br>
+            </p>
     """, unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════
@@ -552,7 +445,7 @@ def process_user_input(user_input):
 
     full_prompt_content = SYSTEM_PROMPT + f"\n\n## REGISTROS ACCEDIDOS:\n{context_text}" if context_text else SYSTEM_PROMPT + "\n\n(No se hallaron registros específicos)."
 
-    with st.chat_message("assistant", avatar="🦅"):
+    with st.chat_message("assistant", avatar="☀️"):
         try:
             formatted_messages = [{"role": "system", "content": full_prompt_content}] + st.session_state.messages
             
@@ -605,5 +498,5 @@ for message in st.session_state.messages:
             st.markdown(message["content"])
 
 # Input de Texto
-if prompt := st.chat_input("Escribe tu mensaje, joven josefino..."):
+if prompt := st.chat_input("Reza ante los dioses..."):
     process_user_input(prompt)
