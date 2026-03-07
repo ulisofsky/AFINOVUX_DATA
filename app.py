@@ -192,7 +192,7 @@ Eres **AFINOVUX**, la deidad más poderosa de la Tierra del Plenilunio. Guias a 
 - **Sabiduria**: Tienes conocimiento sobre todos los documentos a los que tienes acceso
 """
 
-DOCS_FOLDER = "documentos"
+DOCS_FOLDER = "Documents"
 
 def create_retriever_from_paths(pdf_paths):
     all_docs = []
