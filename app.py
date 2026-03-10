@@ -8,6 +8,7 @@ from streamlit_mic_recorder import mic_recorder
 import io
 import zipfile
 import tempfile
+import base64  # NUEVA IMPORTACIÓN PARA MANEJAR IMÁGENES EN HTML
 
 # IMPORTACIONES PARA LANGCHAIN
 from langchain_community.document_loaders import PyPDFLoader
@@ -16,15 +17,16 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # CONFIGURACIÓN DE PÁGINA
+# Se cambia page_icon para usar el logo
 st.set_page_config(
     page_title="AFINOVUX",
-    page_icon="🌙",
+    page_icon="LOGO.png",  # Cambiado de emoji a archivo
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={'Get Help': None, 'Report a bug': None, 'About': "La deidad mayor de la tierra del plenilunio..."}
 )
 
-# CSS - TEMA FANTASÍA
+# CSS - TEMA FANTASÍA (Sin cambios relevantes en el CSS)
 css_juventud = """
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@400;600;800;900&family=Inter:wght@300;400;500;600&display=swap');
@@ -93,6 +95,14 @@ css_juventud = """
         50% { transform: translateY(-10px); }
         100% { transform: translateY(0px); }
     }
+    
+    /* Estilo para la imagen del logo */
+    .logo-img {
+        width: 120px; /* Ajusta el tamaño según necesites */
+        height: auto;
+        border-radius: 50%; /* Opcional: hace la imagen circular */
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
 
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #1a1a40 0%, #0f0c29 100%) !important;
@@ -134,38 +144,56 @@ css_juventud = """
 st.markdown(css_juventud, unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════
-# HTML DEL ENCABEZADO (LUNA) - CORREGIDO EN UNA LÍNEA
+# HTML DEL ENCABEZADO (LOGO) - MODIFICADO
 # ═══════════════════════════════════════════════════════════════
-st.markdown("""
-<div class="main-header">
-    <div class="moon-container">
-        <svg viewBox="0 0 64 64" width="80" height="80" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="moonGrad" x1="10" y1="10" x2="54" y2="54" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#ffd700"/>
-                    <stop offset="50%" stop-color="#ffecd2"/>
-                    <stop offset="100%" stop-color="#fcb69f"/>
-                </linearGradient>
-                <filter id="glow">
-                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                    <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
-            </defs>
-            <circle cx="32" cy="32" r="28" fill="rgba(255, 215, 0, 0.1)"/>
-            <path d="M38 8 A24 24 0 1 1 38 56 A20 20 0 1 0 38 8 Z" fill="url(#moonGrad)" filter="url(#glow)" stroke="#fff" stroke-width="0.5"/>
-            <circle cx="12" cy="20" r="1.5" fill="#ffffff" opacity="0.8"/>
-            <circle cx="52" cy="44" r="1.5" fill="#ffd700" opacity="0.8"/>
-            <circle cx="18" cy="50" r="1" fill="#ffffff" opacity="0.6"/>
-            <circle cx="48" cy="16" r="1.2" fill="#ffffff" opacity="0.7"/>
-        </svg>
+
+def get_base64_image(path):
+    """Convierte una imagen local a base64 para incrustarla en HTML"""
+    try:
+        with open(path, "rb") as image_file:
+            return base64.b64encode(image_file.read()).decode()
+    except Exception:
+        return None
+
+# Intentar cargar LOGO.png o LOGO.jpg
+logo_base64 = None
+logo_path = None
+if os.path.exists("LOGO.png"):
+    logo_path = "LOGO.png"
+elif os.path.exists("LOGO.jpg"):
+    logo_path = "LOGO.jpg"
+
+if logo_path:
+    logo_base64 = get_base64_image(logo_path)
+
+if logo_base64:
+    # Si se encontró la imagen, mostrarla
+    img_src = f"data:image/png;base64,{logo_base64}" if logo_path.endswith('.png') else f"data:image/jpeg;base64,{logo_base64}"
+    header_html = f"""
+    <div class="main-header">
+        <div class="moon-container">
+            <img src="{img_src}" class="logo-img">
+        </div>
+        <h1 class="main-title">AFINOVUX</h1>
+        <p class="subtitle">Deidad del Plenilunio</p>
     </div>
-    <h1 class="main-title">AFINOVUX</h1>
-    <p class="subtitle">Deidad del Plenilunio</p>
-</div>
-""", unsafe_allow_html=True)
+    """
+else:
+    # Fallback por si no encuentra la imagen, muestra un texto o placeholder
+    header_html = """
+    <div class="main-header">
+        <div class="moon-container">
+            <div style="width:80px; height:80px; background:rgba(255,255,255,0.1); border-radius:50%; border: 2px solid #ffd700;"></div>
+        </div>
+        <h1 class="main-title">AFINOVUX</h1>
+        <p class="subtitle">Deidad del Plenilunio</p>
+    </div>
+    """
+
+st.markdown(header_html, unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════
-# FUNCIONES DE VOZ Y LÓGICA (El resto del código sigue igual)
+# FUNCIONES DE VOZ Y LÓGICA
 # ═══════════════════════════════════════════════════════════════
 
 def speak_text(text):
@@ -303,4 +331,5 @@ for msg in st.session_state.messages:
         av = "🌙" if msg["role"] == "assistant" else "👤"
         with st.chat_message(msg["role"], avatar=av): st.markdown(msg["content"])
 
+# CORRECCIÓN: Línea final arreglada
 if prompt := st.chat_input("Reza ante los dioses..."): process_user_input(prompt)
