@@ -8,7 +8,7 @@ from streamlit_mic_recorder import mic_recorder
 import io
 import zipfile
 import tempfile
-import base64  # NUEVA IMPORTACIÓN PARA MANEJAR IMÁGENES EN HTML
+import base64
 
 # IMPORTACIONES PARA LANGCHAIN
 from langchain_community.document_loaders import PyPDFLoader
@@ -17,16 +17,15 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # CONFIGURACIÓN DE PÁGINA
-# Se cambia page_icon para usar el logo
 st.set_page_config(
     page_title="AFINOVUX",
-    page_icon="LOGO.png",  # Cambiado de emoji a archivo
+    page_icon="LOGO.png",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={'Get Help': None, 'Report a bug': None, 'About': "La deidad mayor de la tierra del plenilunio..."}
 )
 
-# CSS - TEMA FANTASÍA (Sin cambios relevantes en el CSS)
+# CSS - TEMA FANTASÍA CON CORRECCIÓN DE SIDEBAR
 css_juventud = """
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@400;600;800;900&family=Inter:wght@300;400;500;600&display=swap');
@@ -48,10 +47,43 @@ css_juventud = """
 
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
+    /* Ocultamos el header por defecto para limpiar la interfaz */
     header {visibility: hidden;}
     [data-testid="stDecoration"] {display: none;}
     [data-testid="stToolbar"] {display: none;}
     [data-testid="stHeader"] {background-color: transparent !important;}
+
+    /* ═══════════════════════════════════════════════════════════════
+       SOLUCIÓN: FORZAR VISIBILIDAD DEL BOTÓN DE SIDEBAR 
+       Cuando la barra lateral se cierra, Streamlit crea este elemento.
+       Lo hacemos visible y lo posicionamos fijo en la esquina.
+    ═══════════════════════════════════════════════════════════════ */
+    [data-testid="collapsedControl"] {
+        visibility: visible !important;
+        position: fixed !important;
+        top: 10px !important;
+        left: 10px !important;
+        z-index: 99999 !important;
+        background: rgba(26, 26, 64, 0.9) !important;
+        border: 1px solid rgba(0, 212, 255, 0.5) !important;
+        border-radius: 50% !important;
+        padding: 5px !important;
+        box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+    }
+    
+    /* Estilo del icono dentro del botón de restaurar */
+    [data-testid="collapsedControl"] svg {
+        fill: #00d4ff !important;
+        width: 20px !important;
+        height: 20px !important;
+    }
+    
+    /* Estilo del botón de cerrar dentro del sidebar */
+    [data-testid="stSidebarHeader"] button {
+        color: #00d4ff !important;
+        background: rgba(0, 212, 255, 0.1) !important;
+        border-radius: 50% !important;
+    }
 
     .main-header {
         text-align: center;
@@ -98,9 +130,9 @@ css_juventud = """
     
     /* Estilo para la imagen del logo */
     .logo-img {
-        width: 120px; /* Ajusta el tamaño según necesites */
+        width: 120px;
         height: auto;
-        border-radius: 50%; /* Opcional: hace la imagen circular */
+        border-radius: 50%;
         box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
     }
 
@@ -144,7 +176,7 @@ css_juventud = """
 st.markdown(css_juventud, unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════
-# HTML DEL ENCABEZADO (LOGO) - MODIFICADO
+# HTML DEL ENCABEZADO (LOGO)
 # ═══════════════════════════════════════════════════════════════
 
 def get_base64_image(path):
@@ -179,7 +211,7 @@ if logo_base64:
     </div>
     """
 else:
-    # Fallback por si no encuentra la imagen, muestra un texto o placeholder
+    # Fallback por si no encuentra la imagen
     header_html = """
     <div class="main-header">
         <div class="moon-container">
@@ -331,5 +363,4 @@ for msg in st.session_state.messages:
         av = "🌙" if msg["role"] == "assistant" else "👤"
         with st.chat_message(msg["role"], avatar=av): st.markdown(msg["content"])
 
-# CORRECCIÓN: Línea final arreglada
 if prompt := st.chat_input("Reza ante los dioses..."): process_user_input(prompt)
