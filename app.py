@@ -25,7 +25,7 @@ st.set_page_config(
     menu_items={'Get Help': None, 'Report a bug': None, 'About': "La deidad mayor de la tierra del plenilunio..."}
 )
 
-# CSS - TEMA FANTASÍA CON CORRECCIÓN DE SIDEBAR
+# CSS - TEMA FANTASÍA CORREGIDO
 css_juventud = """
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@400;600;800;900&family=Inter:wght@300;400;500;600&display=swap');
@@ -45,18 +45,31 @@ css_juventud = """
         padding-top: 2rem !important;
     }
 
+    /* Ocultar elementos nativos específicos en lugar de todo el header */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
-    /* Ocultamos el header por defecto para limpiar la interfaz */
-    header {visibility: hidden;}
     [data-testid="stDecoration"] {display: none;}
-    [data-testid="stToolbar"] {display: none;}
-    [data-testid="stHeader"] {background-color: transparent !important;}
+    
+    /* CORRECCIÓN IMPORTANTE: 
+       No usamos 'visibility: hidden' en el header para no bloquear clics.
+       Usamos altura 0 y ocultamos la toolbar interna.
+    */
+    header, [data-testid="stHeader"] {
+        background-color: transparent !important;
+        height: 0px !important;
+        min-height: 0px !important;
+        padding: 0 !important;
+        visibility: visible !important; /* Mantener visible para permitir interacción */
+    }
+
+    /* Ocultar la barra de herramientas nativa (botones hamburguesa, etc) */
+    [data-testid="stToolbar"] {
+        display: none !important;
+    }
 
     /* ═══════════════════════════════════════════════════════════════
-       SOLUCIÓN: FORZAR VISIBILIDAD DEL BOTÓN DE SIDEBAR 
-       Cuando la barra lateral se cierra, Streamlit crea este elemento.
-       Lo hacemos visible y lo posicionamos fijo en la esquina.
+       BOTÓN DE SIDEBAR (COLLAPSED CONTROL) - TOTALMENTE FUNCIONAL
+       Se fuerza posición fija y eventos de ratón.
     ═══════════════════════════════════════════════════════════════ */
     [data-testid="collapsedControl"] {
         visibility: visible !important;
@@ -64,11 +77,15 @@ css_juventud = """
         top: 10px !important;
         left: 10px !important;
         z-index: 99999 !important;
+        pointer-events: auto !important; /* Asegura que se pueda hacer clic */
         background: rgba(26, 26, 64, 0.9) !important;
         border: 1px solid rgba(0, 212, 255, 0.5) !important;
         border-radius: 50% !important;
-        padding: 5px !important;
+        padding: 8px !important;
         box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     
     /* Estilo del icono dentro del botón de restaurar */
@@ -78,7 +95,7 @@ css_juventud = """
         height: 20px !important;
     }
     
-    /* Estilo del botón de cerrar dentro del sidebar */
+    /* Estilo del botón de cerrar (X) dentro del sidebar */
     [data-testid="stSidebarHeader"] button {
         color: #00d4ff !important;
         background: rgba(0, 212, 255, 0.1) !important;
@@ -128,7 +145,6 @@ css_juventud = """
         100% { transform: translateY(0px); }
     }
     
-    /* Estilo para la imagen del logo */
     .logo-img {
         width: 120px;
         height: auto;
@@ -136,9 +152,11 @@ css_juventud = """
         box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
     }
 
+    /* Asegurar que el sidebar esté por encima de todo */
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #1a1a40 0%, #0f0c29 100%) !important;
         border-right: 1px solid rgba(0, 212, 255, 0.2);
+        z-index: 9999 !important;
     }
     [data-testid="stSidebar"] * { color: #e0e0ff !important; }
     [data-testid="stSidebar"] h2 { color: #00d4ff !important; font-family: 'Montserrat', sans-serif !important; font-weight: 800; }
@@ -187,7 +205,6 @@ def get_base64_image(path):
     except Exception:
         return None
 
-# Intentar cargar LOGO.png o LOGO.jpg
 logo_base64 = None
 logo_path = None
 if os.path.exists("LOGO.png"):
@@ -199,7 +216,6 @@ if logo_path:
     logo_base64 = get_base64_image(logo_path)
 
 if logo_base64:
-    # Si se encontró la imagen, mostrarla
     img_src = f"data:image/png;base64,{logo_base64}" if logo_path.endswith('.png') else f"data:image/jpeg;base64,{logo_base64}"
     header_html = f"""
     <div class="main-header">
@@ -211,7 +227,6 @@ if logo_base64:
     </div>
     """
 else:
-    # Fallback por si no encuentra la imagen
     header_html = """
     <div class="main-header">
         <div class="moon-container">
